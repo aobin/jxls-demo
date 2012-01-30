@@ -50,4 +50,13 @@ public class Department {
     public void setStaff(List staff) {
         this.staff = staff;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", chief=" + chief +
+                ", staff.size=" + staff.size() +
+                '}';
+    }
 }

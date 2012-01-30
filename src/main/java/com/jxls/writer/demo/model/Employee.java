@@ -83,4 +83,13 @@ public class Employee {
     public void setSuperior(Employee superior) {
         this.superior = superior;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", payment=" + payment +
+                '}';
+    }
 }
