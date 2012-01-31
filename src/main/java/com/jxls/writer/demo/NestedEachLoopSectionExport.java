@@ -59,7 +59,10 @@ public class NestedEachLoopSectionExport {
         Transformer poiTransformer = new PoiTransformer(workbook);
         System.out.println("Creating area");
         BaseArea baseArea = new BaseArea(new Cell(0,0), new Size(7, 15), poiTransformer);
-        Command eachCommand = new EachCommand(new Size(6, 11), "department", "departments", new BaseArea(new Cell(0, 1), new Size(6, 11), poiTransformer));
+        BaseArea departmentArea = new BaseArea(new Cell(0, 1), new Size(6, 11), poiTransformer);
+        Command eachCommand = new EachCommand(new Size(6, 11), "department", "departments", departmentArea);
+        Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", new BaseArea(new Cell(0,8), new Size(6,1), poiTransformer));
+        departmentArea.addCommand(new Pos(0,7), employeeEachCommand);
         baseArea.addCommand(new Pos(0, 1), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
