@@ -64,7 +64,12 @@ public class NestedEachLoopSectionExport {
         BaseArea baseArea = new BaseArea(new Cell(0,0), new Size(7, 15), poiTransformer);
         BaseArea departmentArea = new BaseArea(new Cell(0, 1), new Size(7, 11), poiTransformer);
         EachCommand eachCommand = new EachCommand(new Size(7, 11), "department", "departments", departmentArea);
-        Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", new BaseArea(new Cell(0,8), new Size(6,1), poiTransformer));
+        BaseArea employeeArea = new BaseArea(new Cell(0, 8), new Size(6, 1), poiTransformer);
+        IfCommand ifCommand = new IfCommand("employee.payment <= 2000", new Size(6,1),
+                new BaseArea(new Cell(0,17), new Size(6,1), poiTransformer),
+                new BaseArea(new Cell(0,8), new Size(6,1), poiTransformer));
+        employeeArea.addCommand(new Pos(0,0), ifCommand);
+        Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", employeeArea);
         departmentArea.addCommand(new Pos(0,7), employeeEachCommand);
         baseArea.addCommand(new Pos(0, 1), eachCommand);
         Context context = new Context();
