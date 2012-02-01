@@ -11,6 +11,8 @@ import com.jxls.writer.demo.model.Employee;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.List;
  *         Date: 1/30/12 12:15 PM
  */
 public class NestedEachLoopSectionExport {
+    static Logger logger = LoggerFactory.getLogger(NestedEachLoopSectionExport.class);
     private static String template = "departments.xls";
     private static String output = "target/departments_output.xls";
 
@@ -51,28 +54,33 @@ public class NestedEachLoopSectionExport {
         department.addEmployee(new Employee("Natali", 28, 2600, 0.10));
         department.addEmployee(new Employee("Martha", 33, 2150, 0.25));
         departments.add(department);
-        System.out.println("Opening input stream");
+        logger.info("Opening input stream");
         InputStream is = NestedEachLoopSectionExport.class.getResourceAsStream(template);
         assert is != null;
-        System.out.println("Creating Workbook");
+        logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
         Transformer poiTransformer = new PoiTransformer(workbook);
         System.out.println("Creating area");
         BaseArea baseArea = new BaseArea(new Cell(0,0), new Size(7, 15), poiTransformer);
-        BaseArea departmentArea = new BaseArea(new Cell(0, 1), new Size(6, 11), poiTransformer);
-        Command eachCommand = new EachCommand(new Size(6, 11), "department", "departments", departmentArea);
+        BaseArea departmentArea = new BaseArea(new Cell(0, 1), new Size(7, 11), poiTransformer);
+        EachCommand eachCommand = new EachCommand(new Size(7, 11), "department", "departments", departmentArea);
         Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", new BaseArea(new Cell(0,8), new Size(6,1), poiTransformer));
         departmentArea.addCommand(new Pos(0,7), employeeEachCommand);
         baseArea.addCommand(new Pos(0, 1), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
-        System.out.println("Applying at cell (0,0,1)");
+        logger.info("Applying at cell (0,0,1)");
         baseArea.applyAt(new Cell(0, 0, 1), context);
-        System.out.println("Complete");
+        logger.info("Setting EachCommand direction to Right");
+        eachCommand.setDirection(EachCommand.Direction.RIGHT);
+        logger.info("Applying at cell (1,1,2)");
+        baseArea.applyAt(new Cell(0,0,2), context);
+        logger.info("Complete");
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
-        System.out.println("written to file");
+        logger.info("written to file");
         is.close();
         os.close();
     }
+
 }
