@@ -61,25 +61,25 @@ public class NestedEachLoopSectionExport {
         Workbook workbook = WorkbookFactory.create(is);
         Transformer poiTransformer = new PoiTransformer(workbook);
         System.out.println("Creating area");
-        BaseArea baseArea = new BaseArea(new Cell(0,0), new Size(7, 15), poiTransformer);
-        BaseArea departmentArea = new BaseArea(new Cell(0, 1), new Size(7, 11), poiTransformer);
+        BaseArea baseArea = new BaseArea(new Cell(0, 0), new Size(7, 15), poiTransformer);
+        BaseArea departmentArea = new BaseArea(new Cell(1, 0), new Size(7, 11), poiTransformer);
         EachCommand eachCommand = new EachCommand(new Size(7, 11), "department", "departments", departmentArea);
-        BaseArea employeeArea = new BaseArea(new Cell(0, 8), new Size(6, 1), poiTransformer);
+        BaseArea employeeArea = new BaseArea(new Cell(8, 0), new Size(6, 1), poiTransformer);
         IfCommand ifCommand = new IfCommand("employee.payment <= 2000", new Size(6,1),
-                new BaseArea(new Cell(0,17), new Size(6,1), poiTransformer),
-                new BaseArea(new Cell(0,8), new Size(6,1), poiTransformer));
-        employeeArea.addCommand(new Pos(0,0), ifCommand);
+                new BaseArea(new Cell(17, 0), new Size(6,1), poiTransformer),
+                new BaseArea(new Cell(8, 0), new Size(6,1), poiTransformer));
+        employeeArea.addCommand(new Pos(0, 0), ifCommand);
         Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", employeeArea);
-        departmentArea.addCommand(new Pos(0,7), employeeEachCommand);
-        baseArea.addCommand(new Pos(0, 1), eachCommand);
+        departmentArea.addCommand(new Pos(7, 0), employeeEachCommand);
+        baseArea.addCommand(new Pos(1, 0), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
         logger.info("Applying at cell (0,0,1)");
-        baseArea.applyAt(new Cell(0, 0, 1), context);
+        baseArea.applyAt(new Cell(1, 0, 0), context);
         logger.info("Setting EachCommand direction to Right");
         eachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell (1,1,2)");
-        baseArea.applyAt(new Cell(0,0,2), context);
+        baseArea.applyAt(new Cell(2, 0, 0), context);
         logger.info("Complete");
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
