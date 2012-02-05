@@ -64,13 +64,13 @@ public class NestedEachLoopSectionExport {
         BaseArea baseArea = new BaseArea(new Pos(0, 0), new Size(7, 15), poiTransformer);
         BaseArea departmentArea = new BaseArea(new Pos(1, 0), new Size(7, 11), poiTransformer);
         EachCommand eachCommand = new EachCommand(new Size(7, 11), "department", "departments", departmentArea);
-//        BaseArea employeeArea = new BaseArea(new Pos(0, 8), new Size(6, 1), poiTransformer);
-//        IfCommand ifCommand = new IfCommand("employee.payment <= 2000", new Size(6,1),
-//                new BaseArea(new Pos(0, 17), new Size(6,1), poiTransformer),
-//                new BaseArea(new Pos(0, 8), new Size(6,1), poiTransformer));
-//        employeeArea.addCommand(new Pos(0, 0), ifCommand);
-//        Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", employeeArea);
-//        departmentArea.addCommand(new Pos(0, 7), employeeEachCommand);
+        BaseArea employeeArea = new BaseArea(new Pos(8, 0), new Size(6, 1), poiTransformer);
+        IfCommand ifCommand = new IfCommand("employee.payment <= 2000", new Size(6,1),
+                new BaseArea(new Pos(17, 0), new Size(6,1), poiTransformer),
+                new BaseArea(new Pos(8, 0), new Size(6,1), poiTransformer));
+        employeeArea.addCommand(new Pos(0, 0), ifCommand);
+        Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", employeeArea);
+        departmentArea.addCommand(new Pos(7, 0), employeeEachCommand);
         baseArea.addCommand(new Pos(1, 0), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
