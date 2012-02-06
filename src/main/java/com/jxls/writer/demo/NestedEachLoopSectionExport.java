@@ -1,6 +1,5 @@
 package com.jxls.writer.demo;
 
-import com.jxls.writer.Cell;
 import com.jxls.writer.Pos;
 import com.jxls.writer.Size;
 import com.jxls.writer.command.*;
