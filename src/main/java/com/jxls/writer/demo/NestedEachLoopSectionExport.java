@@ -58,7 +58,7 @@ public class NestedEachLoopSectionExport {
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = new PoiTransformer(workbook);
+        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating area");
         BaseArea baseArea = new BaseArea(new Pos(0, 0), new Size(7, 15), poiTransformer);
         BaseArea departmentArea = new BaseArea(new Pos(1, 0), new Size(7, 11), poiTransformer);
