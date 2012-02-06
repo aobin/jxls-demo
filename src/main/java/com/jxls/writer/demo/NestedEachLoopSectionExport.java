@@ -74,12 +74,14 @@ public class NestedEachLoopSectionExport {
         baseArea.addCommand(new Pos(1, 0), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
-        logger.info("Applying at cell (0,1,0)");
+        logger.info("Applying at cell (1,0,0)");
         baseArea.applyAt(new Pos(1, 0, 0), context);
+        baseArea.processFormulas();
         logger.info("Setting EachCommand direction to Right");
         eachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell (2,0,0)");
         baseArea.applyAt(new Pos(2, 0, 0), context);
+        baseArea.processFormulas();
         logger.info("Complete");
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
