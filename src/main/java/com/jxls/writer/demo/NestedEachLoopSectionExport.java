@@ -79,6 +79,7 @@ public class NestedEachLoopSectionExport {
         logger.info("Setting EachCommand direction to Right");
         eachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell (2,0,0)");
+        poiTransformer.resetTargetCells();
         baseArea.applyAt(new Pos(2, 0, 0), context);
         baseArea.processFormulas();
         logger.info("Complete");
