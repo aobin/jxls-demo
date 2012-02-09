@@ -21,12 +21,16 @@ import java.util.List;
  * @author Leonid Vysochyn
  *         Date: 1/30/12 12:15 PM
  */
-public class NestedEachLoopSectionExport {
-    static Logger logger = LoggerFactory.getLogger(NestedEachLoopSectionExport.class);
-    private static String template = "departments.xls";
-    private static String output = "target/departments_output.xls";
+public class EachIfCommandDemo {
+    static Logger logger = LoggerFactory.getLogger(EachIfCommandDemo.class);
+    private static String template = "each_if_demo.xls";
+    private static String output = "target/each_if_demo_output.xls";
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
+        execute();
+    }
+
+    public static void execute() throws IOException, InvalidFormatException {
         List<Department> departments = new ArrayList<Department>();
         Department department = new Department("IT");
         Employee chief = new Employee("Derek", 35, 3000, 0.30);
@@ -54,7 +58,7 @@ public class NestedEachLoopSectionExport {
         department.addEmployee(new Employee("Martha", 33, 2150, 0.25));
         departments.add(department);
         logger.info("Opening input stream");
-        InputStream is = NestedEachLoopSectionExport.class.getResourceAsStream(template);
+        InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
@@ -74,13 +78,13 @@ public class NestedEachLoopSectionExport {
         Context context = new Context();
         context.putVar("departments", departments);
         logger.info("Applying at cell (1,0,0)");
-        baseArea.applyAt(new Pos(1, 0, 0), context);
+        baseArea.applyAt(new Pos("Down", 0, 0), context);
         baseArea.processFormulas();
         logger.info("Setting EachCommand direction to Right");
         eachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell (2,0,0)");
         poiTransformer.resetTargetCells();
-        baseArea.applyAt(new Pos(2, 0, 0), context);
+        baseArea.applyAt(new Pos("Right", 0, 0), context);
         baseArea.processFormulas();
         logger.info("Complete");
         OutputStream os = new FileOutputStream(output);

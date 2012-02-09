@@ -32,10 +32,9 @@
                             <goal>java</goal>
                         </goals>
                     </execution>
-
                 </executions>
                 <configuration>
-                    <mainClass>com.jxls.writer.demo.NestedEachLoopSectionExport</mainClass>
+                    <mainClass>com.jxls.writer.demo.MainDemo</mainClass>
                 </configuration>
             </plugin>
         </plugins>
