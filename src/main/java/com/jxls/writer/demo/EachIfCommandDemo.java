@@ -64,28 +64,28 @@ public class EachIfCommandDemo {
         Workbook workbook = WorkbookFactory.create(is);
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating area");
-        BaseArea baseArea = new BaseArea(new Pos("Template",0, 0), new Size(7, 15), poiTransformer);
-        BaseArea departmentArea = new BaseArea(new Pos("Template",1, 0), new Size(7, 11), poiTransformer);
+        XlsArea xlsArea = new XlsArea(new Pos("Template",0, 0), new Size(7, 15), poiTransformer);
+        XlsArea departmentArea = new XlsArea(new Pos("Template",1, 0), new Size(7, 11), poiTransformer);
         EachCommand eachCommand = new EachCommand("department", "departments", departmentArea);
-        BaseArea employeeArea = new BaseArea(new Pos("Template",8, 0), new Size(6, 1), poiTransformer);
+        XlsArea employeeArea = new XlsArea(new Pos("Template",8, 0), new Size(6, 1), poiTransformer);
         IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
-                new BaseArea(new Pos("Template",17, 0), new Size(6,1), poiTransformer),
-                new BaseArea(new Pos("Template",8, 0), new Size(6,1), poiTransformer));
+                new XlsArea(new Pos("Template",17, 0), new Size(6,1), poiTransformer),
+                new XlsArea(new Pos("Template",8, 0), new Size(6,1), poiTransformer));
         employeeArea.addCommand(new Pos("Template",0, 0), new Size(6,1), ifCommand);
         Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
         departmentArea.addCommand(new Pos("Template",7, 0), new Size(6,1), employeeEachCommand);
-        baseArea.addCommand(new Pos("Template",1, 0), new Size(7,11), eachCommand);
+        xlsArea.addCommand(new Pos("Template",1, 0), new Size(7,11), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
         logger.info("Applying at cell " + new Pos("Down",0,0));
-        baseArea.applyAt(new Pos("Down", 0, 0), context);
-        baseArea.processFormulas();
+        xlsArea.applyAt(new Pos("Down", 0, 0), context);
+        xlsArea.processFormulas();
         logger.info("Setting EachCommand direction to Right");
         eachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell " + new Pos("Right", 0,0));
         poiTransformer.resetTargetCells();
-        baseArea.applyAt(new Pos("Right", 0, 0), context);
-        baseArea.processFormulas();
+        xlsArea.applyAt(new Pos("Right", 0, 0), context);
+        xlsArea.processFormulas();
         logger.info("Complete");
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
