@@ -77,12 +77,12 @@ public class EachIfCommandDemo {
         baseArea.addCommand(new Pos("Template",1, 0), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
-        logger.info("Applying at cell (1,0,0)");
+        logger.info("Applying at cell " + new Pos("Down",0,0));
         baseArea.applyAt(new Pos("Down", 0, 0), context);
         baseArea.processFormulas();
         logger.info("Setting EachCommand direction to Right");
         eachCommand.setDirection(EachCommand.Direction.RIGHT);
-        logger.info("Applying at cell (2,0,0)");
+        logger.info("Applying at cell " + new Pos("Right", 0,0));
         poiTransformer.resetTargetCells();
         baseArea.applyAt(new Pos("Right", 0, 0), context);
         baseArea.processFormulas();
