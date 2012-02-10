@@ -66,15 +66,15 @@ public class EachIfCommandDemo {
         System.out.println("Creating area");
         BaseArea baseArea = new BaseArea(new Pos("Template",0, 0), new Size(7, 15), poiTransformer);
         BaseArea departmentArea = new BaseArea(new Pos("Template",1, 0), new Size(7, 11), poiTransformer);
-        EachCommand eachCommand = new EachCommand(new Size(7, 11), "department", "departments", departmentArea);
+        EachCommand eachCommand = new EachCommand("department", "departments", departmentArea);
         BaseArea employeeArea = new BaseArea(new Pos("Template",8, 0), new Size(6, 1), poiTransformer);
-        IfCommand ifCommand = new IfCommand("employee.payment <= 2000", new Size(6,1),
+        IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
                 new BaseArea(new Pos("Template",17, 0), new Size(6,1), poiTransformer),
                 new BaseArea(new Pos("Template",8, 0), new Size(6,1), poiTransformer));
-        employeeArea.addCommand(new Pos("Template",0, 0), ifCommand);
-        Command employeeEachCommand = new EachCommand(new Size(6,1), "employee", "department.staff", employeeArea);
-        departmentArea.addCommand(new Pos("Template",7, 0), employeeEachCommand);
-        baseArea.addCommand(new Pos("Template",1, 0), eachCommand);
+        employeeArea.addCommand(new Pos("Template",0, 0), new Size(6,1), ifCommand);
+        Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
+        departmentArea.addCommand(new Pos("Template",7, 0), new Size(6,1), employeeEachCommand);
+        baseArea.addCommand(new Pos("Template",1, 0), new Size(7,11), eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
         logger.info("Applying at cell " + new Pos("Down",0,0));

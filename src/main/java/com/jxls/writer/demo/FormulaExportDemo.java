@@ -39,7 +39,6 @@ public class FormulaExportDemo {
         Workbook workbook = WorkbookFactory.create(is);
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         BaseArea sheet1Area = new BaseArea(new Pos("Sheet1",0,0), new Size(4,4), poiTransformer);
-        //BaseArea sheet1Area2 = new BaseArea(new Pos("Sheet1",3,2), new Size(4,4), poiTransformer);
         BaseArea sheet2Area = new BaseArea(new Pos("Sheet2",0,0), new Size(1,2), poiTransformer);
         BaseArea sheet3Area = new BaseArea(new Pos("Sheet 3",0,0), new Size(1,2), poiTransformer);
         Context context = new Context();
