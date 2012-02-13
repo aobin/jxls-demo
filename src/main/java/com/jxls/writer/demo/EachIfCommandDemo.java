@@ -1,6 +1,6 @@
 package com.jxls.writer.demo;
 
-import com.jxls.writer.Pos;
+import com.jxls.writer.CellRef;
 import com.jxls.writer.Size;
 import com.jxls.writer.command.*;
 import com.jxls.writer.transform.Transformer;
@@ -64,27 +64,27 @@ public class EachIfCommandDemo {
         Workbook workbook = WorkbookFactory.create(is);
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating area");
-        XlsArea xlsArea = new XlsArea(new Pos("Template",0, 0), new Size(7, 15), poiTransformer);
-        XlsArea departmentArea = new XlsArea(new Pos("Template",1, 0), new Size(7, 11), poiTransformer);
+        XlsArea xlsArea = new XlsArea("Template!A1:G15", poiTransformer);
+        XlsArea departmentArea = new XlsArea("Template!A2:G12", poiTransformer);
         EachCommand eachCommand = new EachCommand("department", "departments", departmentArea);
-        XlsArea employeeArea = new XlsArea(new Pos("Template",8, 0), new Size(6, 1), poiTransformer);
+        XlsArea employeeArea = new XlsArea("Template!A9:F9", poiTransformer);
         IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
-                new XlsArea(new Pos("Template",17, 0), new Size(6,1), poiTransformer),
-                new XlsArea(new Pos("Template",8, 0), new Size(6,1), poiTransformer));
-        employeeArea.addCommand(new Pos("Template",0, 0), new Size(6,1), ifCommand);
+                new XlsArea("Template!A18:F18", poiTransformer),
+                new XlsArea("Template!A9:F9", poiTransformer));
+        employeeArea.addCommand("Template!A9:F9", ifCommand);
         Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
-        departmentArea.addCommand(new Pos("Template",7, 0), new Size(6,1), employeeEachCommand);
-        xlsArea.addCommand(new Pos("Template",1, 0), new Size(7,11), eachCommand);
+        departmentArea.addCommand("Template!A9:F9", employeeEachCommand);
+        xlsArea.addCommand("Template!A2:F12", eachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
-        logger.info("Applying at cell " + new Pos("Down",0,0));
-        xlsArea.applyAt(new Pos("Down", 0, 0), context);
+        logger.info("Applying at cell " + new CellRef("Down!A1"));
+        xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
         logger.info("Setting EachCommand direction to Right");
         eachCommand.setDirection(EachCommand.Direction.RIGHT);
-        logger.info("Applying at cell " + new Pos("Right", 0,0));
+        logger.info("Applying at cell " + new CellRef("Right!A1"));
         poiTransformer.resetTargetCells();
-        xlsArea.applyAt(new Pos("Right", 0, 0), context);
+        xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
         logger.info("Complete");
         OutputStream os = new FileOutputStream(output);

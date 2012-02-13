@@ -1,6 +1,7 @@
 package com.jxls.writer.demo;
 
-import com.jxls.writer.Pos;
+import com.jxls.writer.AreaRef;
+import com.jxls.writer.CellRef;
 import com.jxls.writer.Size;
 import com.jxls.writer.command.*;
 import com.jxls.writer.transform.Transformer;
@@ -36,15 +37,15 @@ public class FormulaExportDemo {
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
-        XlsArea sheet1Area = new XlsArea(new Pos("Sheet1",0,0), new Size(4,4), poiTransformer);
-        XlsArea sheet2Area = new XlsArea(new Pos("Sheet2",0,0), new Size(1,2), poiTransformer);
-        XlsArea sheet3Area = new XlsArea(new Pos("Sheet 3",0,0), new Size(1,2), poiTransformer);
+        XlsArea sheet1Area = new XlsArea("Sheet1!A1:D4", poiTransformer);
+        XlsArea sheet2Area = new XlsArea("Sheet2!A1:A2", poiTransformer);
+        XlsArea sheet3Area = new XlsArea("'Sheet 3'!A1:A2", poiTransformer);
         Context context = new Context();
-        sheet3Area.applyAt(new Pos("Sheet1", 0, 10), context);
-        sheet2Area.applyAt(new Pos("Sheet2", 5, 1), context);
-        sheet2Area.applyAt(new Pos("Sheet2", 5, 2), context);
-        sheet2Area.applyAt(new Pos("Sheet2", 5, 3), context);
-        sheet1Area.applyAt(new Pos("Sheet1", 10, 5), context);
+        sheet3Area.applyAt(new CellRef("Sheet1!K1"), context);
+        sheet2Area.applyAt(new CellRef("Sheet2!B6"), context);
+        sheet2Area.applyAt(new CellRef("Sheet2!C6"), context);
+        sheet2Area.applyAt(new CellRef("Sheet2!D6"), context);
+        sheet1Area.applyAt(new CellRef("Sheet1!F11"), context);
         sheet1Area.processFormulas();
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
