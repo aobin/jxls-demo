@@ -11,6 +11,7 @@ import java.io.IOException;
 public class MainDemo {
     public static void main(String[] args) throws IOException, InvalidFormatException {
         EachIfCommandDemo.execute();
+        EachIfXmlBuilderDemo.execute();
         FormulaExportDemo.execute();
     }
 }

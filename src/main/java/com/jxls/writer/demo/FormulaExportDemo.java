@@ -27,6 +27,7 @@ public class FormulaExportDemo {
     private static String output = "target/formulas_demo_output.xlsx";
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
+        logger.info("Executing formulas demo");
         execute();
     }
 

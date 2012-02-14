@@ -27,10 +27,50 @@ public class EachIfCommandDemo {
     private static String output = "target/each_if_demo_output.xls";
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
+        logger.info("Executing Each,If command demo");
         execute();
     }
 
     public static void execute() throws IOException, InvalidFormatException {
+        List<Department> departments = createDepartments();
+        logger.info("Opening input stream");
+        InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
+        assert is != null;
+        logger.info("Creating Workbook");
+        Workbook workbook = WorkbookFactory.create(is);
+        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
+        System.out.println("Creating area");
+        XlsArea xlsArea = new XlsArea("Template!A1:G15", poiTransformer);
+        XlsArea departmentArea = new XlsArea("Template!A2:G12", poiTransformer);
+        EachCommand departmentEachCommand = new EachCommand("department", "departments", departmentArea);
+        XlsArea employeeArea = new XlsArea("Template!A9:F9", poiTransformer);
+        IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
+                new XlsArea("Template!A18:F18", poiTransformer),
+                new XlsArea("Template!A9:F9", poiTransformer));
+        employeeArea.addCommand("Template!A9:F9", ifCommand);
+        Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
+        departmentArea.addCommand("Template!A9:F9", employeeEachCommand);
+        xlsArea.addCommand("Template!A2:F12", departmentEachCommand);
+        Context context = new Context();
+        context.putVar("departments", departments);
+        logger.info("Applying at cell " + new CellRef("Down!A1"));
+        xlsArea.applyAt(new CellRef("Down!A1"), context);
+        xlsArea.processFormulas();
+        logger.info("Setting EachCommand direction to Right");
+        departmentEachCommand.setDirection(EachCommand.Direction.RIGHT);
+        logger.info("Applying at cell " + new CellRef("Right!A1"));
+        poiTransformer.resetTargetCells();
+        xlsArea.applyAt(new CellRef("Right!A1"), context);
+        xlsArea.processFormulas();
+        logger.info("Complete");
+        OutputStream os = new FileOutputStream(output);
+        workbook.write(os);
+        logger.info("written to file");
+        is.close();
+        os.close();
+    }
+
+    public static List<Department> createDepartments() {
         List<Department> departments = new ArrayList<Department>();
         Department department = new Department("IT");
         Employee chief = new Employee("Derek", 35, 3000, 0.30);
@@ -57,41 +97,7 @@ public class EachIfCommandDemo {
         department.addEmployee(new Employee("Natali", 28, 2600, 0.10));
         department.addEmployee(new Employee("Martha", 33, 2150, 0.25));
         departments.add(department);
-        logger.info("Opening input stream");
-        InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
-        System.out.println("Creating area");
-        XlsArea xlsArea = new XlsArea("Template!A1:G15", poiTransformer);
-        XlsArea departmentArea = new XlsArea("Template!A2:G12", poiTransformer);
-        EachCommand eachCommand = new EachCommand("department", "departments", departmentArea);
-        XlsArea employeeArea = new XlsArea("Template!A9:F9", poiTransformer);
-        IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
-                new XlsArea("Template!A18:F18", poiTransformer),
-                new XlsArea("Template!A9:F9", poiTransformer));
-        employeeArea.addCommand("Template!A9:F9", ifCommand);
-        Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
-        departmentArea.addCommand("Template!A9:F9", employeeEachCommand);
-        xlsArea.addCommand("Template!A2:F12", eachCommand);
-        Context context = new Context();
-        context.putVar("departments", departments);
-        logger.info("Applying at cell " + new CellRef("Down!A1"));
-        xlsArea.applyAt(new CellRef("Down!A1"), context);
-        xlsArea.processFormulas();
-        logger.info("Setting EachCommand direction to Right");
-        eachCommand.setDirection(EachCommand.Direction.RIGHT);
-        logger.info("Applying at cell " + new CellRef("Right!A1"));
-        poiTransformer.resetTargetCells();
-        xlsArea.applyAt(new CellRef("Right!A1"), context);
-        xlsArea.processFormulas();
-        logger.info("Complete");
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
-        logger.info("written to file");
-        is.close();
-        os.close();
+        return departments;
     }
 
 }
