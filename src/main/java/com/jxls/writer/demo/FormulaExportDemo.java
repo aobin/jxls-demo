@@ -1,8 +1,6 @@
 package com.jxls.writer.demo;
 
-import com.jxls.writer.AreaRef;
-import com.jxls.writer.CellRef;
-import com.jxls.writer.Size;
+import com.jxls.writer.common.CellRef;
 import com.jxls.writer.command.*;
 import com.jxls.writer.transform.Transformer;
 import com.jxls.writer.transform.poi.PoiTransformer;

@@ -1,6 +1,6 @@
 package com.jxls.writer.demo;
 
-import com.jxls.writer.CellRef;
+import com.jxls.writer.common.CellRef;
 import com.jxls.writer.builder.AreaBuilder;
 import com.jxls.writer.builder.xml.XlsAreaXmlBuilder;
 import com.jxls.writer.command.*;
