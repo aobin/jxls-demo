@@ -1,7 +1,8 @@
 package com.jxls.writer.demo;
 
+import com.jxls.writer.area.XlsArea;
 import com.jxls.writer.common.CellRef;
-import com.jxls.writer.command.*;
+import com.jxls.writer.common.Context;
 import com.jxls.writer.transform.Transformer;
 import com.jxls.writer.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;

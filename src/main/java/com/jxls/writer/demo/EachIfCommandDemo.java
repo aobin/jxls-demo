@@ -1,7 +1,9 @@
 package com.jxls.writer.demo;
 
+import com.jxls.writer.area.XlsArea;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.command.*;
+import com.jxls.writer.common.Context;
 import com.jxls.writer.transform.Transformer;
 import com.jxls.writer.transform.poi.PoiTransformer;
 import com.jxls.writer.demo.model.Department;
@@ -58,7 +60,7 @@ public class EachIfCommandDemo {
         logger.info("Setting EachCommand direction to Right");
         departmentEachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell " + new CellRef("Right!A1"));
-        poiTransformer.resetTargetCells();
+        poiTransformer.resetTargetCellRefs();
         xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
         logger.info("Complete");

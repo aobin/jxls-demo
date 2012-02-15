@@ -1,9 +1,10 @@
 package com.jxls.writer.demo;
 
+import com.jxls.writer.area.Area;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.builder.AreaBuilder;
 import com.jxls.writer.builder.xml.XlsAreaXmlBuilder;
-import com.jxls.writer.command.*;
+import com.jxls.writer.common.Context;
 import com.jxls.writer.demo.model.Department;
 import com.jxls.writer.transform.Transformer;
 import com.jxls.writer.transform.poi.PoiTransformer;
@@ -54,7 +55,7 @@ public class EachIfXmlBuilderDemo {
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
         logger.info("Applying second area at cell " + new CellRef("Right!A1"));
-        poiTransformer.resetTargetCells();
+        poiTransformer.resetTargetCellRefs();
         xlsArea2.applyAt(new CellRef("Right!A1"), context);
         xlsArea2.processFormulas();
         logger.info("Complete");
