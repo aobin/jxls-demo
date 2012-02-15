@@ -45,8 +45,9 @@ public class EachIfCommandDemo {
         XlsArea departmentArea = new XlsArea("Template!A2:G12", poiTransformer);
         EachCommand departmentEachCommand = new EachCommand("department", "departments", departmentArea);
         XlsArea employeeArea = new XlsArea("Template!A9:F9", poiTransformer);
+        XlsArea ifArea = new XlsArea("Template!A18:F18", poiTransformer);
         IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
-                new XlsArea("Template!A18:F18", poiTransformer),
+                ifArea,
                 new XlsArea("Template!A9:F9", poiTransformer));
         employeeArea.addCommand("Template!A9:F9", ifCommand);
         Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
