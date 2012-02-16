@@ -13,5 +13,6 @@ public class MainDemo {
         EachIfCommandDemo.execute();
         EachIfXmlBuilderDemo.execute();
         FormulaExportDemo.execute();
+        AreaListenerDemo.execute();
     }
 }
