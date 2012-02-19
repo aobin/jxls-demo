@@ -55,8 +55,8 @@ public class EachIfCommandDemo {
         xlsArea.addCommand("Template!A2:F12", departmentEachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
-        logger.info("Applying at cell " + new CellRef("Down!A1"));
-        xlsArea.applyAt(new CellRef("Down!A1"), context);
+        logger.info("Applying at cell " + new CellRef("Down!B2"));
+        xlsArea.applyAt(new CellRef("Down!B2"), context);
         xlsArea.processFormulas();
         logger.info("Setting EachCommand direction to Right");
         departmentEachCommand.setDirection(EachCommand.Direction.RIGHT);
