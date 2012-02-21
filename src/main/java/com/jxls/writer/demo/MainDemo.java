@@ -15,5 +15,6 @@ public class MainDemo {
         FormulaExportDemo.execute();
         AreaListenerDemo.execute();
         MultipleSheetDemo.execute();
+        UserCommandDemo.execute();
     }
 }

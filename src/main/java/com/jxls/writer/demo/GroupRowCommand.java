@@ -43,4 +43,8 @@ public class GroupRowCommand extends AbstractCommand{
         super.addArea(area);
         this.area = area;
     }
+
+    public void setCollapseIf(String collapseIf) {
+        this.collapseIf = collapseIf;
+    }
 }
