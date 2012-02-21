@@ -1,4 +1,4 @@
-<xlsarea>
+<xls>
     <area ref="Template!A1:G15" clearCells="true">
         <each items="departments" var="department" ref="Template!A2:F12">
             <area ref="Template!A2:G12">
@@ -27,4 +27,4 @@
             </area>
         </each>
     </area>
-</xlsarea>
+</xls>

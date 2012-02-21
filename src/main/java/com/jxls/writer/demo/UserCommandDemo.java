@@ -1,0 +1,64 @@
+package com.jxls.writer.demo;
+
+import com.jxls.writer.area.Area;
+import com.jxls.writer.builder.AreaBuilder;
+import com.jxls.writer.builder.xml.XlsAreaXmlBuilder;
+import com.jxls.writer.common.CellRef;
+import com.jxls.writer.common.Context;
+import com.jxls.writer.demo.model.Department;
+import com.jxls.writer.transform.Transformer;
+import com.jxls.writer.transform.poi.PoiTransformer;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+
+/**
+ * @author Leonid Vysochyn
+ *         Date: 2/21/12 4:30 PM
+ */
+public class UserCommandDemo {
+    static Logger logger = LoggerFactory.getLogger(UserCommandDemo.class);
+    private static String template = "each_if_demo.xls";
+    private static String xmlConfig = "user_command_demo.xml";
+    private static String output = "target/user_command_output.xls";
+
+    public static void main(String[] args) throws IOException, InvalidFormatException {
+        logger.info("Executing User Command demo");
+        execute();
+    }
+
+    public static void execute() throws IOException, InvalidFormatException {
+        List<Department> departments = EachIfCommandDemo.createDepartments();
+        logger.info("Opening input stream");
+        InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
+        assert is != null;
+        logger.info("Creating Workbook");
+        Workbook workbook = WorkbookFactory.create(is);
+        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
+        System.out.println("Creating areas");
+        InputStream configInputStream = UserCommandDemo.class.getResourceAsStream(xmlConfig);
+        AreaBuilder areaBuilder = new XlsAreaXmlBuilder(poiTransformer);
+        List<Area> xlsAreaList = areaBuilder.build(configInputStream);
+        Area xlsArea = xlsAreaList.get(0);
+        Context context = new Context();
+        context.putVar("departments", departments);
+        logger.info("Applying area at cell " + new CellRef("Down!A1"));
+        xlsArea.applyAt(new CellRef("Down!A1"), context);
+        xlsArea.processFormulas();
+        logger.info("Complete");
+        OutputStream os = new FileOutputStream(output);
+        workbook.write(os);
+        logger.info("Written to file");
+        is.close();
+        os.close();
+    }
+
+}
