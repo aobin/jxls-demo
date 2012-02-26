@@ -2,7 +2,7 @@ package com.jxls.writer.demo;
 
 import com.jxls.writer.area.Area;
 import com.jxls.writer.builder.AreaBuilder;
-import com.jxls.writer.builder.xml.XlsAreaXmlBuilder;
+import com.jxls.writer.builder.xml.XmlAreaBuilder;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.common.Context;
 import com.jxls.writer.demo.model.Department;
@@ -45,8 +45,8 @@ public class UserCommandDemo {
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating areas");
         InputStream configInputStream = UserCommandDemo.class.getResourceAsStream(xmlConfig);
-        AreaBuilder areaBuilder = new XlsAreaXmlBuilder(poiTransformer);
-        List<Area> xlsAreaList = areaBuilder.build(configInputStream);
+        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, poiTransformer);
+        List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();
         context.putVar("departments", departments);
