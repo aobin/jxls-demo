@@ -4,6 +4,7 @@ import com.jxls.writer.area.XlsArea;
 import com.jxls.writer.command.Command;
 import com.jxls.writer.command.EachCommand;
 import com.jxls.writer.command.IfCommand;
+import com.jxls.writer.common.AreaRef;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.common.Context;
 import com.jxls.writer.demo.model.Department;
@@ -53,10 +54,10 @@ public class MultipleSheetDemo {
         IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
                 ifArea,
                 new XlsArea("Template!A9:F9", poiTransformer));
-        employeeArea.addCommand("Template!A9:F9", ifCommand);
+        employeeArea.addCommand(new AreaRef("Template!A9:F9"), ifCommand);
         Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
-        departmentArea.addCommand("Template!A9:F9", employeeEachCommand);
-        xlsArea.addCommand("Template!A2:F12", departmentEachCommand);
+        departmentArea.addCommand(new AreaRef("Template!A9:F9"), employeeEachCommand);
+        xlsArea.addCommand(new AreaRef("Template!A2:F12"), departmentEachCommand);
         Context context = new Context();
         context.putVar("departments", departments);
         logger.info("Applying at cell Sheet!A1");
