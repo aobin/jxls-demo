@@ -16,5 +16,6 @@ public class MainDemo {
         AreaListenerDemo.execute();
         MultipleSheetDemo.execute();
         UserCommandDemo.execute();
+        XlsCommentBuilderDemo.execute();
     }
 }

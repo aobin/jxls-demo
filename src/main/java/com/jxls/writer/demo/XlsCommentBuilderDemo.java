@@ -48,7 +48,7 @@ public class XlsCommentBuilderDemo {
         Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();
         context.putVar("departments", departments);
-        logger.info("Applying area at cell " + new CellRef("Down!A1"));
+        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
         logger.info("Complete");
