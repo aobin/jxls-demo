@@ -17,5 +17,6 @@ public class MainDemo {
         MultipleSheetDemo.execute();
         UserCommandDemo.execute();
         XlsCommentBuilderDemo.execute();
+        ImageDemo.execute();
     }
 }

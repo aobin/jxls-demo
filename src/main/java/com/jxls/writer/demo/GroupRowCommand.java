@@ -2,6 +2,7 @@ package com.jxls.writer.demo;
 
 import com.jxls.writer.area.Area;
 import com.jxls.writer.command.AbstractCommand;
+import com.jxls.writer.command.Command;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.common.Context;
 import com.jxls.writer.common.Size;
@@ -39,9 +40,10 @@ public class GroupRowCommand extends AbstractCommand{
     }
 
     @Override
-    public void addArea(Area area) {
+    public Command addArea(Area area) {
         super.addArea(area);
         this.area = area;
+        return this;
     }
 
     public void setCollapseIf(String collapseIf) {
