@@ -26,8 +26,8 @@ import java.util.List;
  */
 public class XlsCommentBuilderDemo {
     static Logger logger = LoggerFactory.getLogger(XlsCommentBuilderDemo.class);
-    private static String template = "each_if_markup_demo.xls";
-    private static String output = "target/each_if_xls_comment_builder_output.xls";
+    private static String template = "comment_markup_demo.xls";
+    private static String output = "target/comment_builder_output.xls";
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
         logger.info("Executing XLS Comment builder demo");
