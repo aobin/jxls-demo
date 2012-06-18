@@ -12,6 +12,7 @@ public class Department {
     private String name;
     private Employee chief;
     private List<Employee> staff = new ArrayList<Employee>();
+    private String link;
 
     public Department(String name) {
         this.name = name;
@@ -33,6 +34,14 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Employee getChief() {

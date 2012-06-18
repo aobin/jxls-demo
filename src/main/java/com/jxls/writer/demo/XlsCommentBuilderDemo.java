@@ -6,6 +6,7 @@ import com.jxls.writer.builder.xls.XlsCommentAreaBuilder;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.common.Context;
 import com.jxls.writer.demo.model.Department;
+import com.jxls.writer.transform.poi.PoiContext;
 import com.jxls.writer.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -45,7 +46,7 @@ public class XlsCommentBuilderDemo {
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
-        Context context = new Context();
+        Context context = new PoiContext();
         context.putVar("departments", departments);
         InputStream imageInputStream = ImageDemo.class.getResourceAsStream("car.jpg");
         byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
@@ -53,6 +54,14 @@ public class XlsCommentBuilderDemo {
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
+        // TODO: implement applying to next sheet
+//        transformer.resetTargetCellRefs();
+//        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
+//        xlsArea.applyAt(new CellRef("Right!A1"), context);
+//        xlsArea.processFormulas();
+
+        logger.info("Removing template sheet");
+        workbook.removeSheetAt(0);
         logger.info("Complete");
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
