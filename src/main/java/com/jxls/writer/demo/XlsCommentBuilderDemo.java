@@ -3,15 +3,14 @@ package com.jxls.writer.demo;
 import com.jxls.writer.area.Area;
 import com.jxls.writer.builder.AreaBuilder;
 import com.jxls.writer.builder.xls.XlsCommentAreaBuilder;
-import com.jxls.writer.builder.xml.XmlAreaBuilder;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.common.Context;
 import com.jxls.writer.demo.model.Department;
-import com.jxls.writer.transform.Transformer;
 import com.jxls.writer.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +47,9 @@ public class XlsCommentBuilderDemo {
         Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();
         context.putVar("departments", departments);
+        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("car.jpg");
+        byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
+        context.putVar("image", imageBytes);
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
