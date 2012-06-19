@@ -3,6 +3,8 @@ package com.jxls.writer.demo;
 import com.jxls.writer.area.Area;
 import com.jxls.writer.builder.AreaBuilder;
 import com.jxls.writer.builder.xls.XlsCommentAreaBuilder;
+import com.jxls.writer.command.Command;
+import com.jxls.writer.command.EachCommand;
 import com.jxls.writer.common.CellRef;
 import com.jxls.writer.common.Context;
 import com.jxls.writer.demo.model.Department;
@@ -56,9 +58,12 @@ public class XlsCommentBuilderDemo {
         xlsArea.processFormulas();
         // TODO: implement applying to next sheet
 //        transformer.resetTargetCellRefs();
-//        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
-//        xlsArea.applyAt(new CellRef("Right!A1"), context);
-//        xlsArea.processFormulas();
+        xlsArea.reset();
+        EachCommand eachCommand = (EachCommand) xlsArea.findCommandByName("each").get(0);
+        eachCommand.setDirection(EachCommand.Direction.RIGHT);
+        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
+        xlsArea.applyAt(new CellRef("Right!A1"), context);
+        xlsArea.processFormulas();
 
         logger.info("Removing template sheet");
         workbook.removeSheetAt(0);

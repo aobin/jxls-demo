@@ -68,7 +68,7 @@ public class AreaListenerDemo {
         logger.info("Setting EachCommand direction to Right");
         departmentEachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell " + new CellRef("Right!A1"));
-        poiTransformer.resetTargetCellRefs();
+        xlsArea.reset();
         xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
         logger.info("Complete");

@@ -55,7 +55,7 @@ public class EachIfXmlBuilderDemo {
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
         logger.info("Applying second area at cell " + new CellRef("Right!A1"));
-        poiTransformer.resetTargetCellRefs();
+        xlsArea.reset();
         xlsArea2.applyAt(new CellRef("Right!A1"), context);
         xlsArea2.processFormulas();
         logger.info("Complete");

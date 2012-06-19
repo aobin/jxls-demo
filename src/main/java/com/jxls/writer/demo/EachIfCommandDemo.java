@@ -62,7 +62,7 @@ public class EachIfCommandDemo {
         logger.info("Setting EachCommand direction to Right");
         departmentEachCommand.setDirection(EachCommand.Direction.RIGHT);
         logger.info("Applying at cell " + new CellRef("Right!A1"));
-        poiTransformer.resetTargetCellRefs();
+        xlsArea.reset();
         xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
         logger.info("Complete");
@@ -78,7 +78,7 @@ public class EachIfCommandDemo {
         Department department = new Department("IT");
         Employee chief = new Employee("Derek", 35, 3000, 0.30);
         department.setChief(chief);
-        department.setLink("http://apache.com");
+        department.setLink("http://jxls.sf.net");
         department.addEmployee(new Employee("Elsa", 28, 1500, 0.15));
         department.addEmployee(new Employee("Oleg", 32, 2300, 0.25));
         department.addEmployee(new Employee("Neil", 34, 2500, 0.00));
@@ -88,7 +88,7 @@ public class EachIfCommandDemo {
         department = new Department("HR");
         chief = new Employee("Betsy", 37, 2200, 0.30);
         department.setChief(chief);
-        department.setLink("http://google.com");
+        department.setLink("http://jxls.sf.net");
         department.addEmployee(new Employee("Olga", 26, 1400, 0.20));
         department.addEmployee(new Employee("Helen", 30, 2100, 0.10));
         department.addEmployee(new Employee("Keith", 24, 1800, 0.15));
@@ -97,7 +97,7 @@ public class EachIfCommandDemo {
         department = new Department("BA");
         chief = new Employee("Wendy", 35, 2900, 0.35);
         department.setChief(chief);
-        department.setLink("http://grails.org");
+        department.setLink("http://jxls.sf.net");
         department.addEmployee(new Employee("Denise", 30, 2400, 0.20));
         department.addEmployee(new Employee("LeAnn", 32, 2200, 0.15));
         department.addEmployee(new Employee("Natali", 28, 2600, 0.10));
