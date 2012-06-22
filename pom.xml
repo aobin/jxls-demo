@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>jxls-writer-demo</groupId>
-    <artifactId>jxls-writer-demo</artifactId>
+    <groupId>com.jxls</groupId>
+    <artifactId>jxls-plus-demo</artifactId>
     <version>1.0</version>
 
     <build>
@@ -34,7 +34,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.jxls.writer.demo.MainDemo</mainClass>
+                    <mainClass>com.jxls.plus.demo.MainDemo</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -42,7 +42,7 @@
     <dependencies>
         <dependency>
             <groupId>com.jxls</groupId>
-            <artifactId>jxls-writer</artifactId>
+            <artifactId>jxls-plus</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

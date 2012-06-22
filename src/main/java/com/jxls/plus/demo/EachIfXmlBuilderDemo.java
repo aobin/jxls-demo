@@ -1,13 +1,13 @@
-package com.jxls.writer.demo;
+package com.jxls.plus.demo;
 
-import com.jxls.writer.area.Area;
-import com.jxls.writer.builder.AreaBuilder;
-import com.jxls.writer.builder.xml.XmlAreaBuilder;
-import com.jxls.writer.common.CellRef;
-import com.jxls.writer.common.Context;
-import com.jxls.writer.demo.model.Department;
-import com.jxls.writer.transform.Transformer;
-import com.jxls.writer.transform.poi.PoiTransformer;
+import com.jxls.plus.area.Area;
+import com.jxls.plus.builder.AreaBuilder;
+import com.jxls.plus.builder.xml.XmlAreaBuilder;
+import com.jxls.plus.common.CellRef;
+import com.jxls.plus.common.Context;
+import com.jxls.plus.demo.model.Department;
+import com.jxls.plus.transform.Transformer;
+import com.jxls.plus.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -22,16 +22,16 @@ import java.util.List;
 
 /**
  * @author Leonid Vysochyn
- *         Date: 2/21/12 4:30 PM
+ *         Date: 2/14/12 3:59 PM
  */
-public class UserCommandDemo {
-    static Logger logger = LoggerFactory.getLogger(UserCommandDemo.class);
+public class EachIfXmlBuilderDemo {
+    static Logger logger = LoggerFactory.getLogger(EachIfCommandDemo.class);
     private static String template = "each_if_demo.xls";
-    private static String xmlConfig = "user_command_demo.xml";
-    private static String output = "target/user_command_output.xls";
+    private static String xmlConfig = "each_if_demo.xml";
+    private static String output = "target/each_if_xml_builder_output.xls";
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
-        logger.info("Executing User Command demo");
+        logger.info("Executing Each,If XML builder demo");
         execute();
     }
 
@@ -44,19 +44,24 @@ public class UserCommandDemo {
         Workbook workbook = WorkbookFactory.create(is);
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating areas");
-        InputStream configInputStream = UserCommandDemo.class.getResourceAsStream(xmlConfig);
+        InputStream configInputStream = EachIfXmlBuilderDemo.class.getResourceAsStream(xmlConfig);
         AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, poiTransformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
+        Area xlsArea2 = xlsAreaList.get(1);
         Context context = new Context();
         context.putVar("departments", departments);
-        logger.info("Applying area at cell " + new CellRef("Down!A1"));
+        logger.info("Applying first area at cell " + new CellRef("Down!A1"));
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
+        logger.info("Applying second area at cell " + new CellRef("Right!A1"));
+        xlsArea.reset();
+        xlsArea2.applyAt(new CellRef("Right!A1"), context);
+        xlsArea2.processFormulas();
         logger.info("Complete");
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
-        logger.info("Written to file");
+        logger.info("written to file");
         is.close();
         os.close();
     }

@@ -1,17 +1,12 @@
-package com.jxls.writer.demo;
+package com.jxls.plus.demo;
 
-import com.jxls.writer.area.XlsArea;
-import com.jxls.writer.command.Command;
-import com.jxls.writer.command.EachCommand;
-import com.jxls.writer.command.IfCommand;
-import com.jxls.writer.command.ImageCommand;
-import com.jxls.writer.common.AreaRef;
-import com.jxls.writer.common.CellRef;
-import com.jxls.writer.common.Context;
-import com.jxls.writer.common.ImageType;
-import com.jxls.writer.demo.model.Department;
-import com.jxls.writer.transform.Transformer;
-import com.jxls.writer.transform.poi.PoiTransformer;
+import com.jxls.plus.area.XlsArea;
+import com.jxls.plus.command.ImageCommand;
+import com.jxls.plus.common.CellRef;
+import com.jxls.plus.common.Context;
+import com.jxls.plus.common.ImageType;
+import com.jxls.plus.transform.Transformer;
+import com.jxls.plus.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;

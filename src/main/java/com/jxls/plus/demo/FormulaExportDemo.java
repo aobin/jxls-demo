@@ -1,10 +1,10 @@
-package com.jxls.writer.demo;
+package com.jxls.plus.demo;
 
-import com.jxls.writer.area.XlsArea;
-import com.jxls.writer.common.CellRef;
-import com.jxls.writer.common.Context;
-import com.jxls.writer.transform.Transformer;
-import com.jxls.writer.transform.poi.PoiTransformer;
+import com.jxls.plus.area.XlsArea;
+import com.jxls.plus.common.CellRef;
+import com.jxls.plus.common.Context;
+import com.jxls.plus.transform.Transformer;
+import com.jxls.plus.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -18,7 +18,7 @@ import java.io.OutputStream;
 
 /**
  * @author Leonid Vysochyn
- *         Date: 2/9/12 4:38 PM
+ *         Date: 2/9/12
  */
 public class FormulaExportDemo {
     static Logger logger = LoggerFactory.getLogger(FormulaExportDemo.class);

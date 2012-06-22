@@ -1,15 +1,14 @@
-package com.jxls.writer.demo;
+package com.jxls.plus.demo;
 
-import com.jxls.writer.area.Area;
-import com.jxls.writer.builder.AreaBuilder;
-import com.jxls.writer.builder.xls.XlsCommentAreaBuilder;
-import com.jxls.writer.command.Command;
-import com.jxls.writer.command.EachCommand;
-import com.jxls.writer.common.CellRef;
-import com.jxls.writer.common.Context;
-import com.jxls.writer.demo.model.Department;
-import com.jxls.writer.transform.poi.PoiContext;
-import com.jxls.writer.transform.poi.PoiTransformer;
+import com.jxls.plus.area.Area;
+import com.jxls.plus.builder.AreaBuilder;
+import com.jxls.plus.builder.xls.XlsCommentAreaBuilder;
+import com.jxls.plus.command.EachCommand;
+import com.jxls.plus.common.CellRef;
+import com.jxls.plus.common.Context;
+import com.jxls.plus.demo.model.Department;
+import com.jxls.plus.transform.poi.PoiContext;
+import com.jxls.plus.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -56,8 +55,6 @@ public class XlsCommentBuilderDemo {
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
-        // TODO: implement applying to next sheet
-//        transformer.resetTargetCellRefs();
         xlsArea.reset();
         EachCommand eachCommand = (EachCommand) xlsArea.findCommandByName("each").get(0);
         eachCommand.setDirection(EachCommand.Direction.RIGHT);

@@ -1,21 +1,21 @@
-package com.jxls.writer.demo;
+package com.jxls.plus.demo;
 
-import com.jxls.writer.area.Area;
-import com.jxls.writer.command.AbstractCommand;
-import com.jxls.writer.command.Command;
-import com.jxls.writer.common.CellRef;
-import com.jxls.writer.common.Context;
-import com.jxls.writer.common.Size;
-import com.jxls.writer.transform.poi.PoiTransformer;
-import com.jxls.writer.util.Util;
+import com.jxls.plus.area.Area;
+import com.jxls.plus.command.AbstractCommand;
+import com.jxls.plus.command.Command;
+import com.jxls.plus.common.CellRef;
+import com.jxls.plus.common.Context;
+import com.jxls.plus.common.Size;
+import com.jxls.plus.transform.poi.PoiTransformer;
+import com.jxls.plus.util.Util;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * @author Leonid Vysochyn
- *         Date: 2/21/12 4:07 PM
+ *         Date: 2/21/12
  */
-public class GroupRowCommand extends AbstractCommand{
+public class GroupRowCommand extends AbstractCommand {
     Area area;
     String collapseIf;
 
