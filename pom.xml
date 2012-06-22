@@ -9,7 +9,6 @@
     <version>1.0</version>
 
     <build>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -42,7 +41,7 @@
     <dependencies>
         <dependency>
             <groupId>com.jxls</groupId>
-            <artifactId>jxls-plus</artifactId>
+            <artifactId>jxls-plus-poi</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
