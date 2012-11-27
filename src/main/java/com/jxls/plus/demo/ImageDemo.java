@@ -38,7 +38,7 @@ public class ImageDemo {
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         XlsArea xlsArea = new XlsArea("Sheet1!A1:N30", poiTransformer);
         Context context = new Context();
-        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("car.jpg");
+        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
         byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
         context.putVar("image", imageBytes);
         XlsArea imgArea = new XlsArea("Sheet1!A5:D15", poiTransformer);

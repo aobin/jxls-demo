@@ -27,8 +27,8 @@ import java.util.List;
  */
 public class XlsCommentBuilderDemo {
     static Logger logger = LoggerFactory.getLogger(XlsCommentBuilderDemo.class);
-    private static String template = "comment_markup_demo.xls";
-    private static String output = "target/comment_builder_output.xls";
+    private static String template = "comment_markup_demo.xlsx";
+    private static String output = "target/comment_builder_output.xlsx";
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
         logger.info("Executing XLS Comment builder demo");
@@ -49,7 +49,7 @@ public class XlsCommentBuilderDemo {
         Area xlsArea = xlsAreaList.get(0);
         Context context = new PoiContext();
         context.putVar("departments", departments);
-        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("car.jpg");
+        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
         byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
         context.putVar("image", imageBytes);
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
