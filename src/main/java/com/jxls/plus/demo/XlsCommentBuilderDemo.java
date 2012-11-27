@@ -49,9 +49,9 @@ public class XlsCommentBuilderDemo {
         Area xlsArea = xlsAreaList.get(0);
         Context context = new PoiContext();
         context.putVar("departments", departments);
-        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
-        byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
-        context.putVar("image", imageBytes);
+//        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
+//        byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
+//        context.putVar("image", imageBytes);
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
