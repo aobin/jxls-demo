@@ -45,7 +45,7 @@ public class EachIfCommandDemo {
         Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating area");
         XlsArea xlsArea = new XlsArea("Template!A1:G15", poiTransformer);
-        XlsArea departmentArea = new XlsArea("Template!A2:G12", poiTransformer);
+        XlsArea departmentArea = new XlsArea("Template!A2:G13", poiTransformer);
         EachCommand departmentEachCommand = new EachCommand("department", "departments", departmentArea);
         XlsArea employeeArea = new XlsArea("Template!A9:F9", poiTransformer);
         XlsArea ifArea = new XlsArea("Template!A18:F18", poiTransformer);
