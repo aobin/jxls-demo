@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
+ * An implementation of a Command for row grouping
  * @author Leonid Vysochyn
  *         Date: 2/21/12
  */

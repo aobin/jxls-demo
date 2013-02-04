@@ -47,6 +47,7 @@ public class FormulaExportDemo {
         sheet2Area.applyAt(new CellRef("Sheet2!D6"), context);
         sheet1Area.applyAt(new CellRef("Sheet1!F11"), context);
         sheet1Area.processFormulas();
+        sheet1Area.clearCells();
         OutputStream os = new FileOutputStream(output);
         workbook.write(os);
         logger.info("written to file");
