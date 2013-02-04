@@ -20,5 +20,7 @@ public class MainDemo {
         ImageDemo.execute();
         StressDemo.executeStress1();
         StressDemo.executeStress2();
+        StressXlsxDemo.executeStress1();
+        StressXlsxDemo.executeStress2();
     }
 }
