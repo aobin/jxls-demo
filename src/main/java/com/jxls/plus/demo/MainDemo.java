@@ -18,10 +18,11 @@ public class MainDemo {
         UserCommandDemo.execute();
         XlsCommentBuilderDemo.execute();
         ImageDemo.execute();
-//        StressDemo.executeStress1();
-//        StressDemo.executeStress2();
-//        StressXlsxDemo.executeStress1();
-//        StressXlsxDemo.executeStress2();
+        StressDemo.executeStress1();
+        StressDemo.executeStress2();
+        StressXlsxDemo.executeStress1();
+        StressXlsxDemo.executeStress2();
         SxssfDemo.executeStress1();
+        SxssfDemo.executeStress2();
     }
 }

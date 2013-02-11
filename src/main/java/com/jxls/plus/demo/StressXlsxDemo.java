@@ -76,7 +76,7 @@ public class StressXlsxDemo {
         xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
         xlsArea.processFormulas();
         long endTime = System.nanoTime();
-        System.out.println("Stress1 time (s): " + (endTime - startTime)/1000000000);
+        System.out.println("Stress2 time (s): " + (endTime - startTime)/1000000000);
         workbook.removeSheetAt(0);
         OutputStream os = new FileOutputStream("target/stress2_output.xlsx");
         workbook.write(os);
