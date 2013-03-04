@@ -1,4 +1,4 @@
-package com.jxls.plus.demo;
+package com.jxls.plus.demo.jexcel;
 
 import com.jxls.plus.area.Area;
 import com.jxls.plus.builder.AreaBuilder;
@@ -6,20 +6,18 @@ import com.jxls.plus.builder.xls.XlsCommentAreaBuilder;
 import com.jxls.plus.command.EachCommand;
 import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
+import com.jxls.plus.demo.EachIfCommandDemo;
 import com.jxls.plus.demo.model.Department;
+import com.jxls.plus.transform.jexcel.JexcelContext;
+import com.jxls.plus.transform.jexcel.JexcelTransformer;
 import com.jxls.plus.transform.poi.PoiContext;
 import com.jxls.plus.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.util.IOUtils;
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -27,27 +25,28 @@ import java.util.List;
  */
 public class XlsCommentBuilderDemo {
     static Logger logger = LoggerFactory.getLogger(XlsCommentBuilderDemo.class);
-    private static String template = "comment_markup_demo.xlsx";
-    private static String output = "target/comment_builder_output.xlsx";
+    private static String template = "comment_markup_demo.xls";
+    private static String output = "target/jexcel_comment_builder_output.xls";
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
-        logger.info("Executing XLS Comment builder demo");
+    public static void main(String[] args) throws IOException, BiffException, WriteException {
+        logger.info("Executing Jexcel XLS Comment builder demo");
         execute();
     }
 
-    public static void execute() throws IOException, InvalidFormatException {
+
+    public static void execute() throws IOException, BiffException, WriteException {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
         InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template);
         assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
+        logger.info("Creating JexcelTransformer");
+        OutputStream os = new BufferedOutputStream(new FileOutputStream(output));
+        JexcelTransformer transformer = JexcelTransformer.createTransformer(is, os);
         System.out.println("Creating areas");
-        PoiTransformer transformer = PoiTransformer.createTransformer(workbook);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
-        Context context = new PoiContext();
+        Context context = new JexcelContext();
         context.putVar("departments", departments);
 //        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
 //        byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
@@ -61,15 +60,12 @@ public class XlsCommentBuilderDemo {
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
         xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
-
-//        logger.info("Removing template sheet");
-//        workbook.removeSheetAt(0);
-        logger.info("Complete");
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
-        logger.info("written to file");
+        logger.info("Removing template sheet");
+        transformer.getWritableWorkbook().removeSheet(0);
         is.close();
-        os.close();
+        transformer.getWritableWorkbook().write();
+        transformer.getWritableWorkbook().close();
+        logger.info("Complete");
+        logger.info("written to file");
     }
-
 }

@@ -1,5 +1,7 @@
 package com.jxls.plus.demo;
 
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.io.IOException;
  *         Date: 2/9/12 5:05 PM
  */
 public class MainDemo {
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+    public static void main(String[] args) throws IOException, InvalidFormatException, WriteException, BiffException {
         EachIfCommandDemo.execute();
         EachIfXmlBuilderDemo.execute();
         FormulaExportDemo.execute();
@@ -17,12 +19,13 @@ public class MainDemo {
         MultipleSheetDemo.execute();
         UserCommandDemo.execute();
         XlsCommentBuilderDemo.execute();
-        ImageDemo.execute();
-        StressDemo.executeStress1();
-        StressDemo.executeStress2();
-        StressXlsxDemo.executeStress1();
-        StressXlsxDemo.executeStress2();
-        SxssfDemo.executeStress1();
-        SxssfDemo.executeStress2();
+        com.jxls.plus.demo.jexcel.XlsCommentBuilderDemo.execute();
+//        ImageDemo.execute();
+//        StressDemo.executeStress1();
+//        StressDemo.executeStress2();
+//        StressXlsxDemo.executeStress1();
+//        StressXlsxDemo.executeStress2();
+//        SxssfDemo.executeStress1();
+//        SxssfDemo.executeStress2();
     }
 }
