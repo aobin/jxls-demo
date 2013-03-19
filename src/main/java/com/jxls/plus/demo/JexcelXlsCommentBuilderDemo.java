@@ -1,4 +1,4 @@
-package com.jxls.plus.demo.jexcel;
+package com.jxls.plus.demo;
 
 import com.jxls.plus.area.Area;
 import com.jxls.plus.builder.AreaBuilder;
@@ -6,12 +6,9 @@ import com.jxls.plus.builder.xls.XlsCommentAreaBuilder;
 import com.jxls.plus.command.EachCommand;
 import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
-import com.jxls.plus.demo.EachIfCommandDemo;
 import com.jxls.plus.demo.model.Department;
 import com.jxls.plus.transform.jexcel.JexcelContext;
 import com.jxls.plus.transform.jexcel.JexcelTransformer;
-import com.jxls.plus.transform.poi.PoiContext;
-import com.jxls.plus.transform.poi.PoiTransformer;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.slf4j.Logger;
@@ -23,8 +20,8 @@ import java.util.List;
 /**
  * @author Leonid Vysochyn
  */
-public class XlsCommentBuilderDemo {
-    static Logger logger = LoggerFactory.getLogger(XlsCommentBuilderDemo.class);
+public class JexcelXlsCommentBuilderDemo {
+    static Logger logger = LoggerFactory.getLogger(JexcelXlsCommentBuilderDemo.class);
     private static String template = "comment_markup_demo.xls";
     private static String output = "target/jexcel_comment_builder_output.xls";
 
@@ -37,7 +34,7 @@ public class XlsCommentBuilderDemo {
     public static void execute() throws IOException, BiffException, WriteException {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
-        InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template);
+        InputStream is = JexcelXlsCommentBuilderDemo.class.getResourceAsStream(template);
         assert is != null;
         logger.info("Creating JexcelTransformer");
         OutputStream os = new BufferedOutputStream(new FileOutputStream(output));

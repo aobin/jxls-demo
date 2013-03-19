@@ -1,6 +1,5 @@
 package com.jxls.plus.demo;
 
-import com.jxls.plus.demo.jexcel.JexcelStressDemo;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -20,7 +19,7 @@ public class MainDemo {
         MultipleSheetDemo.execute();
         UserCommandDemo.execute();
         XlsCommentBuilderDemo.execute();
-        com.jxls.plus.demo.jexcel.XlsCommentBuilderDemo.execute();
+        JexcelXlsCommentBuilderDemo.execute();
         ImageDemo.execute();
         StressDemo.executeStress1();
         StressDemo.executeStress2();

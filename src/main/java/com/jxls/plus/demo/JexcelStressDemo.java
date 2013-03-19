@@ -1,11 +1,10 @@
-package com.jxls.plus.demo.jexcel;
+package com.jxls.plus.demo;
 
 import com.jxls.plus.area.Area;
 import com.jxls.plus.builder.AreaBuilder;
 import com.jxls.plus.builder.xls.XlsCommentAreaBuilder;
 import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
-import com.jxls.plus.demo.StressDemo;
 import com.jxls.plus.demo.model.Department;
 import com.jxls.plus.demo.model.Employee;
 import com.jxls.plus.transform.jexcel.JexcelContext;
