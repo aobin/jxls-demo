@@ -2,6 +2,7 @@ package com.jxls.plus.demo;
 
 import com.jxls.plus.demo.guide.ObjectCollectionDemo;
 import com.jxls.plus.demo.guide.ObjectCollectionFormulasDemo;
+import com.jxls.plus.demo.guide.ParameterizedFormulasDemo;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -17,6 +18,7 @@ public class MainDemo {
     public static void main(String[] args) throws IOException, InvalidFormatException, WriteException, BiffException, ParseException {
         ObjectCollectionDemo.main(args);
         ObjectCollectionFormulasDemo.main(args);
+        ParameterizedFormulasDemo.main(args);
 //        EachIfCommandDemo.execute();
 //        EachIfXmlBuilderDemo.execute();
 //        FormulaExportDemo.execute();
