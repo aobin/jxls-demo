@@ -31,7 +31,7 @@ public class ParameterizedFormulasDemo {
     public static void main(String[] args) throws ParseException, IOException, InvalidFormatException {
         logger.info("Running ParameterizedFormulasDemo");
         List<Employee> employees = generateSampleEmployeeData();
-        InputStream is = ParameterizedFormulasDemo.class.getResourceAsStream("parameterized_formulas_template.xls");
+        InputStream is = ParameterizedFormulasDemo.class.getResourceAsStream("param_formulas_template.xls");
         assert is != null;
         Workbook workbook = WorkbookFactory.create(is);
         PoiTransformer transformer = PoiTransformer.createTransformer(workbook);
@@ -43,7 +43,7 @@ public class ParameterizedFormulasDemo {
         context.putVar("bonus", 0.1);
         xlsArea.applyAt(new CellRef("Result!A1"), context);
         xlsArea.processFormulas();
-        OutputStream os = new FileOutputStream("target/parameterized_formulas_output.xls");
+        OutputStream os = new FileOutputStream("target/param_formulas_output.xls");
         workbook.write(os);
         is.close();
         os.close();
