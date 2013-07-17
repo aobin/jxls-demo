@@ -2,6 +2,7 @@ package com.jxls.plus.demo;
 
 import com.jxls.plus.demo.guide.ObjectCollectionDemo;
 import com.jxls.plus.demo.guide.ObjectCollectionFormulasDemo;
+import com.jxls.plus.demo.guide.ObjectCollectionXMLBuilderDemo;
 import com.jxls.plus.demo.guide.ParameterizedFormulasDemo;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
@@ -19,6 +20,7 @@ public class MainDemo {
         ObjectCollectionDemo.main(args);
         ObjectCollectionFormulasDemo.main(args);
         ParameterizedFormulasDemo.main(args);
+        ObjectCollectionXMLBuilderDemo.main(args);
 //        EachIfCommandDemo.execute();
 //        EachIfXmlBuilderDemo.execute();
 //        FormulaExportDemo.execute();
