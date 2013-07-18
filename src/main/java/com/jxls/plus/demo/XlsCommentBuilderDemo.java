@@ -7,6 +7,7 @@ import com.jxls.plus.command.EachCommand;
 import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
 import com.jxls.plus.demo.model.Department;
+import com.jxls.plus.transform.Transformer;
 import com.jxls.plus.transform.poi.PoiContext;
 import com.jxls.plus.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -43,7 +44,7 @@ public class XlsCommentBuilderDemo {
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
         System.out.println("Creating areas");
-        PoiTransformer transformer = PoiTransformer.createTransformer(workbook);
+        Transformer transformer = PoiTransformer.createTransformer(workbook);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);

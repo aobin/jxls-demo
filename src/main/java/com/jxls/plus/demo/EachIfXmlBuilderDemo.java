@@ -42,10 +42,10 @@ public class EachIfXmlBuilderDemo {
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
+        Transformer transformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating areas");
         InputStream configInputStream = EachIfXmlBuilderDemo.class.getResourceAsStream(xmlConfig);
-        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, poiTransformer);
+        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
         Area xlsArea2 = xlsAreaList.get(1);

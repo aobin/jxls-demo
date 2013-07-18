@@ -42,10 +42,10 @@ public class UserCommandDemo {
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
+        Transformer transformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating areas");
         InputStream configInputStream = UserCommandDemo.class.getResourceAsStream(xmlConfig);
-        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, poiTransformer);
+        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();

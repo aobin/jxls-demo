@@ -43,14 +43,14 @@ public class AreaListenerDemo {
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
+        Transformer transformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating area");
-        XlsArea xlsArea = new XlsArea("Template!A1:G15", poiTransformer);
-        XlsArea departmentArea = new XlsArea("Template!A2:G12", poiTransformer);
+        XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
+        XlsArea departmentArea = new XlsArea("Template!A2:G12", transformer);
         EachCommand departmentEachCommand = new EachCommand("department", "departments", departmentArea);
-        XlsArea employeeArea = new XlsArea("Template!A9:F9", poiTransformer);
-        XlsArea ifArea = new XlsArea("Template!A18:F18", poiTransformer);
-        XlsArea elseArea = new XlsArea("Template!A9:F9", poiTransformer);
+        XlsArea employeeArea = new XlsArea("Template!A9:F9", transformer);
+        XlsArea ifArea = new XlsArea("Template!A18:F18", transformer);
+        XlsArea elseArea = new XlsArea("Template!A9:F9", transformer);
         IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
                 ifArea,
                 elseArea);

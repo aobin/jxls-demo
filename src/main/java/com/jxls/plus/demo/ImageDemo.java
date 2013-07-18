@@ -35,13 +35,13 @@ public class ImageDemo {
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
-        XlsArea xlsArea = new XlsArea("Sheet1!A1:N30", poiTransformer);
+        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        XlsArea xlsArea = new XlsArea("Sheet1!A1:N30", transformer);
         Context context = new Context();
         InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
         byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
         context.putVar("image", imageBytes);
-        XlsArea imgArea = new XlsArea("Sheet1!A5:D15", poiTransformer);
+        XlsArea imgArea = new XlsArea("Sheet1!A5:D15", transformer);
         xlsArea.addCommand("Sheet1!A4:D15", new ImageCommand("image", ImageType.JPEG).addArea(imgArea));
         xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
         OutputStream os = new FileOutputStream(output);

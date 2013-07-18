@@ -36,10 +36,10 @@ public class FormulaExportDemo {
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
-        XlsArea sheet1Area = new XlsArea("Sheet1!A1:D4", poiTransformer);
-        XlsArea sheet2Area = new XlsArea("Sheet2!A1:A2", poiTransformer);
-        XlsArea sheet3Area = new XlsArea("'Sheet 3'!A1:A2", poiTransformer);
+        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        XlsArea sheet1Area = new XlsArea("Sheet1!A1:D4", transformer);
+        XlsArea sheet2Area = new XlsArea("Sheet2!A1:A2", transformer);
+        XlsArea sheet3Area = new XlsArea("'Sheet 3'!A1:A2", transformer);
         Context context = new Context();
         sheet3Area.applyAt(new CellRef("Sheet1!K1"), context);
         sheet2Area.applyAt(new CellRef("Sheet2!B6"), context);

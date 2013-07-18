@@ -42,16 +42,16 @@ public class MultipleSheetDemo {
         assert is != null;
         logger.info("Creating Workbook");
         Workbook workbook = WorkbookFactory.create(is);
-        Transformer poiTransformer = PoiTransformer.createTransformer(workbook);
+        Transformer transformer = PoiTransformer.createTransformer(workbook);
         System.out.println("Creating area");
-        XlsArea xlsArea = new XlsArea("Template!A1:G15", poiTransformer);
-        XlsArea departmentArea = new XlsArea("Template!A2:G12", poiTransformer);
+        XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
+        XlsArea departmentArea = new XlsArea("Template!A2:G12", transformer);
         EachCommand departmentEachCommand = new EachCommand("department", "departments", departmentArea, new SimpleCellRefGenerator());
-        XlsArea employeeArea = new XlsArea("Template!A9:F9", poiTransformer);
-        XlsArea ifArea = new XlsArea("Template!A18:F18", poiTransformer);
+        XlsArea employeeArea = new XlsArea("Template!A9:F9", transformer);
+        XlsArea ifArea = new XlsArea("Template!A18:F18", transformer);
         IfCommand ifCommand = new IfCommand("employee.payment <= 2000",
                 ifArea,
-                new XlsArea("Template!A9:F9", poiTransformer));
+                new XlsArea("Template!A9:F9", transformer));
         employeeArea.addCommand(new AreaRef("Template!A9:F9"), ifCommand);
         Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
         departmentArea.addCommand(new AreaRef("Template!A9:F9"), employeeEachCommand);
