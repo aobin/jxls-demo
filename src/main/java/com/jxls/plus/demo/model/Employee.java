@@ -42,6 +42,13 @@ public class Employee {
         this.bonus = bonus;
     }
 
+    public Employee(String name, Date birthDate, Double payment, Double bonus) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.payment = payment;
+        this.bonus = bonus;
+    }
+
 
     public static List<Employee> generate(int num){
         List<Employee> result = new ArrayList<Employee>();
