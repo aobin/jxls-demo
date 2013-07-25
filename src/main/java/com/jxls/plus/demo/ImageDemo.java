@@ -32,10 +32,8 @@ public class ImageDemo {
     public static void execute() throws IOException, InvalidFormatException {
         logger.info("Opening input stream");
         InputStream is = ImageDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream(output);
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         XlsArea xlsArea = new XlsArea("Sheet1!A1:N30", transformer);
         Context context = new Context();
         InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
@@ -44,8 +42,7 @@ public class ImageDemo {
         XlsArea imgArea = new XlsArea("Sheet1!A5:D15", transformer);
         xlsArea.addCommand("Sheet1!A4:D15", new ImageCommand("image", ImageType.JPEG).addArea(imgArea));
         xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
+        transformer.write();
         logger.info("written to file");
         is.close();
         os.close();

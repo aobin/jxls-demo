@@ -34,7 +34,6 @@ public class JexcelStressDemo {
         List<Employee> employees = Employee.generate(30000);
         logger.info("Created " + employees.size() + " employees");
         InputStream is = StressDemo.class.getResourceAsStream("stress1.xls");
-        assert is != null;
         OutputStream os = new BufferedOutputStream(new FileOutputStream("target/jexcel_stress1_output.xls"));
         JexcelTransformer transformer = JexcelTransformer.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
@@ -48,10 +47,8 @@ public class JexcelStressDemo {
         long endTime = System.nanoTime();
         System.out.println("Stress1 time (s): " + (endTime - startTime) / 1000000000);
         transformer.getWritableWorkbook().removeSheet(0);
+        transformer.write();
         is.close();
-        transformer.getWritableWorkbook().write();
-        transformer.getWritableWorkbook().close();
-        os.close();
     }
 
     public static void executeStress2() throws IOException, BiffException, WriteException {
@@ -73,8 +70,7 @@ public class JexcelStressDemo {
         long endTime = System.nanoTime();
         System.out.println("Stress2 time (s): " + (endTime - startTime) / 1000000000);
         transformer.getWritableWorkbook().removeSheet(0);
-        transformer.getWritableWorkbook().write();
-        transformer.getWritableWorkbook().close();
+        transformer.write();
         is.close();
         os.close();
     }

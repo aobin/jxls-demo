@@ -44,10 +44,8 @@ public class UserCommandExcelMarkupDemo {
         List<Employee> employees = generateSampleEmployeeData();
         logger.info("Opening input stream");
         InputStream is = UserCommandExcelMarkupDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream(output);
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         XlsCommentAreaBuilder.addCommandMapping("groupRow", GroupRowCommand.class);
         List<Area> xlsAreaList = areaBuilder.build();
@@ -55,10 +53,8 @@ public class UserCommandExcelMarkupDemo {
         Context context = new Context();
         context.putVar("employees", employees);
         xlsArea.applyAt(new CellRef("Result!A1"), context);
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
+        transformer.write();
         is.close();
-        os.close();
         logger.info("Finished UserCommandExcelMarkupDemo");
     }
 

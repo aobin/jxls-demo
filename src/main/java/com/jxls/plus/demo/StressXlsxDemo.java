@@ -39,9 +39,8 @@ public class StressXlsxDemo {
         List<Employee> employees = Employee.generate(30000);
         logger.info("Created " + employees.size() + " employees");
         InputStream is = StressXlsxDemo.class.getResourceAsStream("stress1.xlsx");
-        assert is != null;
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream("target/stress1_output.xlsx");
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
@@ -52,9 +51,7 @@ public class StressXlsxDemo {
         xlsArea.processFormulas();
         long endTime = System.nanoTime();
         System.out.println("Stress1 time (s): " + (endTime - startTime)/1000000000);
-        workbook.removeSheetAt(0);
-        OutputStream os = new FileOutputStream("target/stress1_output.xlsx");
-        workbook.write(os);
+        transformer.write();
         is.close();
         os.close();
     }
@@ -64,9 +61,8 @@ public class StressXlsxDemo {
         List<Department> departments = Department.generate(100, 500);
         logger.info("Created " + departments.size() + " departments");
         InputStream is = StressXlsxDemo.class.getResourceAsStream("stress2.xlsx");
-        assert is != null;
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream("target/stress2_output.xlsx");
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
@@ -77,9 +73,7 @@ public class StressXlsxDemo {
         xlsArea.processFormulas();
         long endTime = System.nanoTime();
         System.out.println("Stress2 time (s): " + (endTime - startTime)/1000000000);
-        workbook.removeSheetAt(0);
-        OutputStream os = new FileOutputStream("target/stress2_output.xlsx");
-        workbook.write(os);
+        transformer.write();
         is.close();
         os.close();
     }

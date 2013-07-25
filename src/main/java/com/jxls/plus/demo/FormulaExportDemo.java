@@ -33,10 +33,8 @@ public class FormulaExportDemo {
     public static void execute() throws IOException, InvalidFormatException {
         logger.info("Opening input stream");
         InputStream is = FormulaExportDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream(output);
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         XlsArea sheet1Area = new XlsArea("Sheet1!A1:D4", transformer);
         XlsArea sheet2Area = new XlsArea("Sheet2!A1:A2", transformer);
         XlsArea sheet3Area = new XlsArea("'Sheet 3'!A1:A2", transformer);
@@ -48,8 +46,7 @@ public class FormulaExportDemo {
         sheet1Area.applyAt(new CellRef("Sheet1!F11"), context);
         sheet1Area.processFormulas();
         sheet1Area.clearCells();
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
+        transformer.write();
         logger.info("written to file");
         is.close();
         os.close();

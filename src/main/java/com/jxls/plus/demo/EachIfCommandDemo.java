@@ -39,10 +39,8 @@ public class EachIfCommandDemo {
         List<Department> departments = createDepartments();
         logger.info("Opening input stream");
         InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream(output);
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         System.out.println("Creating area");
         XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
         XlsArea departmentArea = new XlsArea("Template!A2:G13", transformer);
@@ -67,8 +65,7 @@ public class EachIfCommandDemo {
         xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
         logger.info("Complete");
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
+        transformer.write();
         logger.info("written to file");
         is.close();
         os.close();

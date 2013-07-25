@@ -39,10 +39,8 @@ public class UserCommandDemo {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
         InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream(output);
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         System.out.println("Creating areas");
         InputStream configInputStream = UserCommandDemo.class.getResourceAsStream(xmlConfig);
         AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
@@ -54,11 +52,9 @@ public class UserCommandDemo {
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
         logger.info("Complete");
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
+        transformer.write();
         logger.info("Written to file");
         is.close();
-        os.close();
     }
 
 }

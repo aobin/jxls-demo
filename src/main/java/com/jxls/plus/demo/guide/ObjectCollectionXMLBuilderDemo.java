@@ -35,9 +35,8 @@ public class ObjectCollectionXMLBuilderDemo {
         logger.info("Running ObjectCollectionXMLBuilderDemo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder_template.xls");
-        assert is != null;
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream("target/object_collection_xmlbuilder_output.xls");
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         InputStream configInputStream = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder.xml");
         AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
         List<Area> xlsAreaList = areaBuilder.build();
@@ -45,8 +44,7 @@ public class ObjectCollectionXMLBuilderDemo {
         Context context = new PoiContext();
         context.putVar("employees", employees);
         xlsArea.applyAt(new CellRef("Result!A1"), context);
-        OutputStream os = new FileOutputStream("target/object_collection_xmlbuilder_output.xls");
-        workbook.write(os);
+        transformer.write();
         is.close();
         os.close();
         logger.info("Finished ObjectCollectionXMLBuilderDemo");

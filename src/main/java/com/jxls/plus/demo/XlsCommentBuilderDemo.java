@@ -40,11 +40,8 @@ public class XlsCommentBuilderDemo {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
         InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating Workbook");
-        Workbook workbook = WorkbookFactory.create(is);
-        System.out.println("Creating areas");
-        Transformer transformer = PoiTransformer.createTransformer(workbook);
+        OutputStream os = new FileOutputStream(output);
+        Transformer transformer = PoiTransformer.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
@@ -66,8 +63,7 @@ public class XlsCommentBuilderDemo {
 //        logger.info("Removing template sheet");
 //        workbook.removeSheetAt(0);
         logger.info("Complete");
-        OutputStream os = new FileOutputStream(output);
-        workbook.write(os);
+        transformer.write();
         logger.info("written to file");
         is.close();
         os.close();

@@ -35,8 +35,7 @@ public class JexcelXlsCommentBuilderDemo {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
         InputStream is = JexcelXlsCommentBuilderDemo.class.getResourceAsStream(template);
-        assert is != null;
-        logger.info("Creating JexcelTransformer");
+        logger.info("Creating Transformer");
         OutputStream os = new BufferedOutputStream(new FileOutputStream(output));
         JexcelTransformer transformer = JexcelTransformer.createTransformer(is, os);
         System.out.println("Creating areas");
@@ -60,8 +59,7 @@ public class JexcelXlsCommentBuilderDemo {
         logger.info("Removing template sheet");
         transformer.getWritableWorkbook().removeSheet(0);
         is.close();
-        transformer.getWritableWorkbook().write();
-        transformer.getWritableWorkbook().close();
+        transformer.write();
         logger.info("Complete");
         logger.info("written to file");
     }
