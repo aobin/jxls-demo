@@ -2,16 +2,11 @@ package com.jxls.plus.demo.guide;
 
 import com.jxls.plus.area.Area;
 import com.jxls.plus.builder.AreaBuilder;
-import com.jxls.plus.builder.xls.XlsCommentAreaBuilder;
 import com.jxls.plus.builder.xml.XmlAreaBuilder;
 import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
 import com.jxls.plus.transform.Transformer;
-import com.jxls.plus.transform.poi.PoiContext;
-import com.jxls.plus.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.jxls.plus.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,17 +26,17 @@ import java.util.Locale;
 public class ObjectCollectionXMLBuilderDemo {
     static Logger logger = LoggerFactory.getLogger(ObjectCollectionXMLBuilderDemo.class);
 
-    public static void main(String[] args) throws ParseException, IOException, InvalidFormatException {
+    public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running ObjectCollectionXMLBuilderDemo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder_template.xls");
         OutputStream os = new FileOutputStream("target/object_collection_xmlbuilder_output.xls");
-        Transformer transformer = PoiTransformer.createTransformer(is, os);
+        Transformer transformer = TransformerFactory.createTransformer(is, os);
         InputStream configInputStream = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder.xml");
         AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
-        Context context = new PoiContext();
+        Context context = new Context();
         context.putVar("employees", employees);
         xlsArea.applyAt(new CellRef("Result!A1"), context);
         transformer.write();

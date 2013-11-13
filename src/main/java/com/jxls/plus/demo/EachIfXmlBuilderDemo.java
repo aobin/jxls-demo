@@ -7,10 +7,7 @@ import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
 import com.jxls.plus.demo.model.Department;
 import com.jxls.plus.transform.Transformer;
-import com.jxls.plus.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.jxls.plus.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,17 +27,17 @@ public class EachIfXmlBuilderDemo {
     private static String xmlConfig = "each_if_demo.xml";
     private static String output = "target/each_if_xml_builder_output.xls";
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+    public static void main(String[] args) throws IOException {
         logger.info("Executing Each,If XML builder demo");
         execute();
     }
 
-    public static void execute() throws IOException, InvalidFormatException {
+    public static void execute() throws IOException {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
         InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
         OutputStream os = new FileOutputStream(output);
-        Transformer transformer = PoiTransformer.createTransformer(is, os);
+        Transformer transformer = TransformerFactory.createTransformer(is, os);
         System.out.println("Creating areas");
         InputStream configInputStream = EachIfXmlBuilderDemo.class.getResourceAsStream(xmlConfig);
         AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);

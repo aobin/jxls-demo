@@ -6,11 +6,7 @@ import com.jxls.plus.builder.xls.XlsCommentAreaBuilder;
 import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
 import com.jxls.plus.transform.Transformer;
-import com.jxls.plus.transform.poi.PoiContext;
-import com.jxls.plus.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.jxls.plus.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,16 +26,16 @@ import java.util.Locale;
 public class ParameterizedFormulasDemo {
     static Logger logger = LoggerFactory.getLogger(ParameterizedFormulasDemo.class);
 
-    public static void main(String[] args) throws ParseException, IOException, InvalidFormatException {
+    public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running ParameterizedFormulasDemo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ParameterizedFormulasDemo.class.getResourceAsStream("param_formulas_template.xls");
         OutputStream os = new FileOutputStream("target/param_formulas_output.xls");
-        Transformer transformer = PoiTransformer.createTransformer(is, os);
+        Transformer transformer = TransformerFactory.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
-        Context context = new PoiContext();
+        Context context = new Context();
         context.putVar("employees", employees);
         context.putVar("bonus", 0.1);
         xlsArea.applyAt(new CellRef("Result!A1"), context);

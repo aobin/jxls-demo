@@ -9,10 +9,7 @@ import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
 import com.jxls.plus.demo.model.Department;
 import com.jxls.plus.transform.Transformer;
-import com.jxls.plus.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.jxls.plus.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,17 +27,17 @@ public class MultipleSheetDemo {
     private static String template = "each_if_demo.xls";
     private static String output = "target/multiple_sheet_demo_output.xls";
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+    public static void main(String[] args) throws IOException {
         logger.info("Executing Multiple Sheet demo");
         execute();
     }
 
-    public static void execute() throws IOException, InvalidFormatException {
+    public static void execute() throws IOException {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
         InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
         OutputStream os = new FileOutputStream(output);
-        Transformer transformer = PoiTransformer.createTransformer(is, os);
+        Transformer transformer = TransformerFactory.createTransformer(is, os);
         System.out.println("Creating area");
         XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
         XlsArea departmentArea = new XlsArea("Template!A2:G12", transformer);

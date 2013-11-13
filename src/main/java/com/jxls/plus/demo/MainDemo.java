@@ -1,41 +1,46 @@
 package com.jxls.plus.demo;
 
 import com.jxls.plus.demo.guide.*;
-import jxl.read.biff.BiffException;
-import jxl.write.WriteException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
-import java.io.IOException;
-import java.text.ParseException;
+import com.jxls.plus.transform.Transformer;
+import com.jxls.plus.util.TransformerFactory;
 
 /**
  * @author Leonid Vysochyn
  *         Date: 2/9/12 5:05 PM
  */
 public class MainDemo {
-    public static void main(String[] args) throws IOException, InvalidFormatException, WriteException, BiffException, ParseException {
+    public static void main(String[] args) throws Exception {
         ObjectCollectionDemo.main(args);
         ObjectCollectionJavaAPIDemo.main(args);
         ObjectCollectionFormulasDemo.main(args);
         ParameterizedFormulasDemo.main(args);
         ObjectCollectionXMLBuilderDemo.main(args);
-        UserCommandExcelMarkupDemo.main(args);
+
         EachIfCommandDemo.execute();
         EachIfXmlBuilderDemo.execute();
         FormulaExportDemo.execute();
-        AreaListenerDemo.execute();
+
         MultipleSheetDemo.execute();
-        UserCommandDemo.execute();
         XlsCommentBuilderDemo.execute();
-        JexcelXlsCommentBuilderDemo.execute();
         ImageDemo.execute();
+
+        String transformerName = TransformerFactory.getTransformerName();
+
+        if( TransformerFactory.POI_TRANSFORMER.equals( transformerName ) ){
+            UserCommandDemo.execute();
+            UserCommandExcelMarkupDemo.main(args);
+            AreaListenerDemo.execute();
+            StressXlsxDemo.executeStress1();
+            StressXlsxDemo.executeStress2();
+            SxssfDemo.executeStress1();
+            SxssfDemo.executeStress2();
+        }
+
+        if( TransformerFactory.JEXCEL_TRANSFORMER.equals( transformerName)){
+            // put jexcel specific demos here
+        }
+
         StressDemo.executeStress1();
         StressDemo.executeStress2();
-        StressXlsxDemo.executeStress1();
-        StressXlsxDemo.executeStress2();
-        SxssfDemo.executeStress1();
-        SxssfDemo.executeStress2();
-        JexcelStressDemo.executeStress1();
-        JexcelStressDemo.executeStress2();
     }
 }

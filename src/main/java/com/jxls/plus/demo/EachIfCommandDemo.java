@@ -10,14 +10,14 @@ import com.jxls.plus.common.Context;
 import com.jxls.plus.demo.model.Department;
 import com.jxls.plus.demo.model.Employee;
 import com.jxls.plus.transform.Transformer;
-import com.jxls.plus.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.jxls.plus.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,17 +30,17 @@ public class EachIfCommandDemo {
     private static String template = "each_if_demo.xls";
     private static String output = "target/each_if_demo_output.xls";
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+    public static void main(String[] args) throws IOException {
         logger.info("Executing Each,If command demo");
         execute();
     }
 
-    public static void execute() throws IOException, InvalidFormatException {
+    public static void execute() throws IOException {
         List<Department> departments = createDepartments();
         logger.info("Opening input stream");
         InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
         OutputStream os = new FileOutputStream(output);
-        Transformer transformer = PoiTransformer.createTransformer(is, os);
+        Transformer transformer = TransformerFactory.createTransformer(is, os);
         System.out.println("Creating area");
         XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
         XlsArea departmentArea = new XlsArea("Template!A2:G13", transformer);

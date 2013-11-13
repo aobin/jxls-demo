@@ -4,10 +4,7 @@ import com.jxls.plus.area.XlsArea;
 import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
 import com.jxls.plus.transform.Transformer;
-import com.jxls.plus.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.jxls.plus.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,19 +19,19 @@ import java.io.OutputStream;
  */
 public class FormulaExportDemo {
     static Logger logger = LoggerFactory.getLogger(FormulaExportDemo.class);
-    private static String template = "formulas_demo.xlsx";
-    private static String output = "target/formulas_demo_output.xlsx";
+    private static String template = "formulas_demo.xls";
+    private static String output = "target/formulas_demo_output.xls";
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+    public static void main(String[] args) throws IOException {
         logger.info("Executing formulas demo");
         execute();
     }
 
-    public static void execute() throws IOException, InvalidFormatException {
+    public static void execute() throws IOException {
         logger.info("Opening input stream");
         InputStream is = FormulaExportDemo.class.getResourceAsStream(template);
         OutputStream os = new FileOutputStream(output);
-        Transformer transformer = PoiTransformer.createTransformer(is, os);
+        Transformer transformer = TransformerFactory.createTransformer(is, os);
         XlsArea sheet1Area = new XlsArea("Sheet1!A1:D4", transformer);
         XlsArea sheet2Area = new XlsArea("Sheet2!A1:A2", transformer);
         XlsArea sheet3Area = new XlsArea("'Sheet 3'!A1:A2", transformer);

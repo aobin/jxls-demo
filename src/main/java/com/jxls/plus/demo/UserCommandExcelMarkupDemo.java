@@ -10,6 +10,7 @@ import com.jxls.plus.demo.model.Employee;
 import com.jxls.plus.transform.Transformer;
 import com.jxls.plus.transform.poi.PoiContext;
 import com.jxls.plus.transform.poi.PoiTransformer;
+import com.jxls.plus.util.TransformerFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -45,7 +46,7 @@ public class UserCommandExcelMarkupDemo {
         logger.info("Opening input stream");
         InputStream is = UserCommandExcelMarkupDemo.class.getResourceAsStream(template);
         OutputStream os = new FileOutputStream(output);
-        Transformer transformer = PoiTransformer.createTransformer(is, os);
+        Transformer transformer = TransformerFactory.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         XlsCommentAreaBuilder.addCommandMapping("groupRow", GroupRowCommand.class);
         List<Area> xlsAreaList = areaBuilder.build();
