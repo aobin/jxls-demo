@@ -24,11 +24,12 @@ public class MainDemo {
         XlsCommentBuilderDemo.execute();
         ImageDemo.execute();
 
-        UserCommandExcelMarkupDemo.main(args);
+
 
         String transformerName = TransformerFactory.getTransformerName();
 
         if( TransformerFactory.POI_TRANSFORMER.equals( transformerName ) ){
+            UserCommandExcelMarkupDemo.main(args);
             UserCommandDemo.execute();
             AreaListenerDemo.execute();
             StressXlsxDemo.executeStress1();
@@ -38,6 +39,7 @@ public class MainDemo {
         }
 
         if( TransformerFactory.JEXCEL_TRANSFORMER.equals( transformerName)){
+            JexcelUserCommandExcelMarkupDemo.execute();
             // put jexcel specific demos here
         }
 
