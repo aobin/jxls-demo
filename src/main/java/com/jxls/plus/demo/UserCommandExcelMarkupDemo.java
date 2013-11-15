@@ -8,6 +8,7 @@ import com.jxls.plus.common.CellRef;
 import com.jxls.plus.common.Context;
 import com.jxls.plus.demo.model.Employee;
 import com.jxls.plus.transform.Transformer;
+import com.jxls.plus.transform.jexcel.JexcelTransformer;
 import com.jxls.plus.transform.poi.PoiContext;
 import com.jxls.plus.transform.poi.PoiTransformer;
 import com.jxls.plus.util.TransformerFactory;
@@ -48,7 +49,11 @@ public class UserCommandExcelMarkupDemo {
         OutputStream os = new FileOutputStream(output);
         Transformer transformer = TransformerFactory.createTransformer(is, os);
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        XlsCommentAreaBuilder.addCommandMapping("groupRow", GroupRowCommand.class);
+        if( transformer instanceof PoiTransformer){
+            XlsCommentAreaBuilder.addCommandMapping("groupRow", GroupRowCommand.class);
+        }else{
+            XlsCommentAreaBuilder.addCommandMapping("groupRow", JexcelGroupRowCommand.class);
+        }
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();

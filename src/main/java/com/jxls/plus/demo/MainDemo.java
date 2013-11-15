@@ -24,11 +24,12 @@ public class MainDemo {
         XlsCommentBuilderDemo.execute();
         ImageDemo.execute();
 
+        UserCommandExcelMarkupDemo.main(args);
+
         String transformerName = TransformerFactory.getTransformerName();
 
         if( TransformerFactory.POI_TRANSFORMER.equals( transformerName ) ){
             UserCommandDemo.execute();
-            UserCommandExcelMarkupDemo.main(args);
             AreaListenerDemo.execute();
             StressXlsxDemo.executeStress1();
             StressXlsxDemo.executeStress2();
