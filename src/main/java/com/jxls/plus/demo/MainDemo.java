@@ -39,6 +39,7 @@ public class MainDemo {
         }
 
         if( TransformerFactory.JEXCEL_TRANSFORMER.equals( transformerName)){
+            JexcelAreaListenerDemo.execute();
             JexcelUserCommandExcelMarkupDemo.execute();
             // put jexcel specific demos here
         }
