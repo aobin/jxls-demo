@@ -15,6 +15,8 @@ public class MainDemo {
         ObjectCollectionFormulasDemo.main(args);
         ParameterizedFormulasDemo.main(args);
         ObjectCollectionXMLBuilderDemo.main(args);
+        NestedCommandJavaAPIDemo.main(args);
+        NestedCommandDemo.main(args);
 
         EachIfCommandDemo.execute();
         EachIfXmlBuilderDemo.execute();
