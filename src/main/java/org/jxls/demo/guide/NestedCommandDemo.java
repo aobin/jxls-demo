@@ -25,10 +25,10 @@ import java.util.Locale;
  *         Date: 12/30/13
  */
 public class NestedCommandDemo {
-    static Logger logger = LoggerFactory.getLogger(ObjectCollectionDemo.class);
+    static Logger logger = LoggerFactory.getLogger(NestedCommandDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException {
-        logger.info("Running NestedCommandDemo");
+        logger.info("Running Nested Command demo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = NestedCommandDemo.class.getResourceAsStream("nested_command_template.xls");
         OutputStream os = new FileOutputStream("target/nested_command_output.xls");
@@ -42,7 +42,6 @@ public class NestedCommandDemo {
         transformer.write();
         is.close();
         os.close();
-        logger.info("Finished NestedCommandDemo");
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

@@ -28,7 +28,7 @@ public class HighlightDemo {
     static Logger logger = LoggerFactory.getLogger(HighlightDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException {
-        logger.info("Running HighlightDemo");
+        logger.info("Running Highlight demo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ObjectCollectionDemo.class.getResourceAsStream("highlight_template.xls");
         OutputStream os = new FileOutputStream("target/highlight_output.xls");
@@ -42,7 +42,6 @@ public class HighlightDemo {
         transformer.write();
         is.close();
         os.close();
-        logger.info("Finished HighlightDemo");
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

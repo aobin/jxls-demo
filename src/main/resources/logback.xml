@@ -12,5 +12,5 @@
         <appender-ref ref="CONSOLE" />
     </root>
 
-    <logger name="org.apache.commons.jexl2.JexlEngine" level="WARN"/>
+    <logger name="org.apache.commons.jexl2.JexlEngine" level="ERROR"/>
 </configuration>

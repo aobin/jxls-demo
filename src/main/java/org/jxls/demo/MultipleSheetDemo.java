@@ -28,7 +28,7 @@ public class MultipleSheetDemo {
     private static String output = "target/multiple_sheet_demo_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing Multiple Sheet demo");
+        logger.info("Running Multiple Sheet demo");
         execute();
     }
 

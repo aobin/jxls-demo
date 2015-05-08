@@ -28,7 +28,7 @@ public class ObjectCollectionDemo {
     static Logger logger = LoggerFactory.getLogger(ObjectCollectionDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException {
-        logger.info("Running ObjectCollectionDemo");
+        logger.info("Running Object Collection demo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ObjectCollectionDemo.class.getResourceAsStream("object_collection_template.xls");
         OutputStream os = new FileOutputStream("target/object_collection_output.xls");
@@ -42,7 +42,6 @@ public class ObjectCollectionDemo {
         transformer.write();
         is.close();
         os.close();
-        logger.info("Finished ObjectCollectionDemo");
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

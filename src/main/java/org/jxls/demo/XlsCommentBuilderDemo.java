@@ -27,7 +27,7 @@ public class XlsCommentBuilderDemo {
     private static String output = "target/comment_builder_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing XLS Comment builder demo");
+        logger.info("Running XLS Comment builder demo");
         execute();
     }
 
@@ -54,7 +54,6 @@ public class XlsCommentBuilderDemo {
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
         xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
-
 //        logger.info("Removing template sheet");
 //        workbook.removeSheetAt(0);
         logger.info("Complete");

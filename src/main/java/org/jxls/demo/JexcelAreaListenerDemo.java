@@ -29,7 +29,7 @@ public class JexcelAreaListenerDemo {
     private static String output = "target/jexcel_listener_demo_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing jexcel area listener demo");
+        logger.info("Running Jexcel Area Listener demo");
         execute();
     }
 

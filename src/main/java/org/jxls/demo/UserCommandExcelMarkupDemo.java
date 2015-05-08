@@ -31,12 +31,11 @@ public class UserCommandExcelMarkupDemo {
     private static String output = "target/user_command_markup_output.xls";
 
     public static void main(String[] args) throws IOException, InvalidFormatException, ParseException {
-        logger.info("Executing User Command Markup demo");
+        logger.info("Running User Command Markup demo");
         execute();
     }
 
     public static void execute() throws IOException, InvalidFormatException, ParseException {
-        logger.info("Running UserCommandExcelMarkupDemo");
         List<Employee> employees = generateSampleEmployeeData();
         logger.info("Opening input stream");
         InputStream is = UserCommandExcelMarkupDemo.class.getResourceAsStream(template);

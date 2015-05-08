@@ -27,7 +27,7 @@ public class ObjectCollectionXMLBuilderDemo {
     static Logger logger = LoggerFactory.getLogger(ObjectCollectionXMLBuilderDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException {
-        logger.info("Running ObjectCollectionXMLBuilderDemo");
+        logger.info("Running Object Collection XML Builder demo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder_template.xls");
         OutputStream os = new FileOutputStream("target/object_collection_xmlbuilder_output.xls");
@@ -42,7 +42,6 @@ public class ObjectCollectionXMLBuilderDemo {
         transformer.write();
         is.close();
         os.close();
-        logger.info("Finished ObjectCollectionXMLBuilderDemo");
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

@@ -28,7 +28,7 @@ public class NestedCommandJavaAPIDemo {
     static Logger logger = LoggerFactory.getLogger(NestedCommandJavaAPIDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException {
-        logger.info("Running NestedCommandJavaAPIDemo");
+        logger.info("Running Nested Command JavaAPI demo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = NestedCommandJavaAPIDemo.class.getResourceAsStream("nested_command_javaapi_template.xls");
         OutputStream os = new FileOutputStream("target/nested_command_javaapi_output.xls");
@@ -47,7 +47,6 @@ public class NestedCommandJavaAPIDemo {
         transformer.write();
         is.close();
         os.close();
-        logger.info("Finished NestedCommandJavaAPIDemo");
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

@@ -25,7 +25,7 @@ public class ImageDemo {
     private static String output = "target/image_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing Image demo");
+        logger.info("Running Image demo");
         execute();
     }
 

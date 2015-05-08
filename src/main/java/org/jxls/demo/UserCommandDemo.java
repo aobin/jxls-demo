@@ -28,7 +28,7 @@ public class UserCommandDemo {
     private static String output = "target/user_command_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing User Command demo");
+        logger.info("Running User Command demo");
         execute();
     }
 

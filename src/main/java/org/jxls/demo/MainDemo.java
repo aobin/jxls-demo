@@ -17,13 +17,13 @@ public class MainDemo {
         NestedCommandJavaAPIDemo.main(args);
         NestedCommandDemo.main(args);
 
-        EachIfCommandDemo.execute();
-        EachIfXmlBuilderDemo.execute();
-        FormulaExportDemo.execute();
+        EachIfCommandDemo.main(args);
+        EachIfXmlBuilderDemo.main(args);
+        FormulaExportDemo.main(args);
 
-        MultipleSheetDemo.execute();
-        XlsCommentBuilderDemo.execute();
-        ImageDemo.execute();
+        MultipleSheetDemo.main(args);
+        XlsCommentBuilderDemo.main(args);
+        ImageDemo.main(args);
 
 
 
@@ -31,8 +31,8 @@ public class MainDemo {
 
         if( TransformerFactory.POI_TRANSFORMER.equals( transformerName ) ){
             UserCommandExcelMarkupDemo.main(args);
-            UserCommandDemo.execute();
-            AreaListenerDemo.execute();
+            UserCommandDemo.main(args);
+            AreaListenerDemo.main(args);
             StressXlsxDemo.executeStress1();
             StressXlsxDemo.executeStress2();
             SxssfDemo.executeStress1();
@@ -40,8 +40,8 @@ public class MainDemo {
         }
 
         if( TransformerFactory.JEXCEL_TRANSFORMER.equals( transformerName)){
-            JexcelAreaListenerDemo.execute();
-            JexcelUserCommandExcelMarkupDemo.execute();
+            JexcelAreaListenerDemo.main(args);
+            JexcelUserCommandExcelMarkupDemo.main(args);
         }
 
         StressDemo.executeStress1();

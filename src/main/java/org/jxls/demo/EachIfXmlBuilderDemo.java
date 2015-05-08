@@ -28,7 +28,7 @@ public class EachIfXmlBuilderDemo {
     private static String output = "target/each_if_xml_builder_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing Each,If XML builder demo");
+        logger.info("Running Each/If Command XML Builder demo");
         execute();
     }
 

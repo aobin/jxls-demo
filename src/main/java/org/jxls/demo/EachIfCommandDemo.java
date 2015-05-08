@@ -31,7 +31,7 @@ public class EachIfCommandDemo {
     private static String output = "target/each_if_demo_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing Each,If command demo");
+        logger.info("Running Each/If Commands demo");
         execute();
     }
 

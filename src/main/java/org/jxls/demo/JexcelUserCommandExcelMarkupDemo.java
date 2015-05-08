@@ -31,7 +31,7 @@ public class JexcelUserCommandExcelMarkupDemo {
     private static String output = "target/jexcel_user_command_markup_output.xls";
 
     public static void main(String[] args) throws IOException, InvalidFormatException, ParseException {
-        logger.info("Executing User Command Markup demo");
+        logger.info("Running User Command Markup demo");
         execute();
     }
 

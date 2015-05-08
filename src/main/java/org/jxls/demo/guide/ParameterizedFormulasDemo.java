@@ -27,7 +27,7 @@ public class ParameterizedFormulasDemo {
     static Logger logger = LoggerFactory.getLogger(ParameterizedFormulasDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException {
-        logger.info("Running ParameterizedFormulasDemo");
+        logger.info("Running Parameterized Formulas demo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ParameterizedFormulasDemo.class.getResourceAsStream("param_formulas_template.xls");
         OutputStream os = new FileOutputStream("target/param_formulas_output.xls");
@@ -43,7 +43,6 @@ public class ParameterizedFormulasDemo {
         transformer.write();
         is.close();
         os.close();
-        logger.info("Finished ParameterizedFormulasDemo");
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

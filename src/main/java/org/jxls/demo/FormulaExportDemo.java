@@ -23,7 +23,7 @@ public class FormulaExportDemo {
     private static String output = "target/formulas_demo_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing formulas demo");
+        logger.info("Running Formulas demo");
         execute();
     }
 

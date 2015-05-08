@@ -29,7 +29,7 @@ public class AreaListenerDemo {
     private static String output = "target/listener_demo_output.xls";
 
     public static void main(String[] args) throws IOException {
-        logger.info("Executing area listener demo");
+        logger.info("Running Area Listener demo");
         execute();
     }
 

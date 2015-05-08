@@ -28,7 +28,7 @@ public class ObjectCollectionFormulasDemo {
     static Logger logger = LoggerFactory.getLogger(ObjectCollectionFormulasDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException {
-        logger.info("Running ObjectCollectionDemo");
+        logger.info("Running Object Collection Formulas demo");
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ObjectCollectionFormulasDemo.class.getResourceAsStream("formulas_template.xls");
         OutputStream os = new FileOutputStream("target/formulas_output.xls");
@@ -43,7 +43,6 @@ public class ObjectCollectionFormulasDemo {
         transformer.write();
         is.close();
         os.close();
-        logger.info("Finished ObjectCollectionFormulasDemo");
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {
