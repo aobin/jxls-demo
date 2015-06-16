@@ -3,7 +3,7 @@ Jxls-2 Examples
 
 Overview
 --------
-This project contains examples of Jxls-2 usage
+This project contains examples of [Jxls-2](https://bitbucket.org/leonate/jxls) usage
 
 Build and Run
 -------------
