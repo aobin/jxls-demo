@@ -1,5 +1,5 @@
 <xls>
-    <area ref="Template!A1:G15" clearCells="true">
+    <area ref="Template!A1:G15">
         <each items="departments" var="department" ref="Template!A2:F12">
             <area ref="Template!A2:G12">
                 <each items="department.staff" var="employee" ref="Template!A9:F9">

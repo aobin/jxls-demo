@@ -3,7 +3,9 @@ Jxls-2 Examples
 
 Overview
 --------
-This project contains examples of [Jxls-2](https://bitbucket.org/leonate/jxls) usage
+This project contains examples of [Jxls](https://bitbucket.org/leonate/jxls) usage.
+
+Find more information about Jxls [here](http://jxls.sf.net)
 
 Build and Run
 -------------

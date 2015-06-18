@@ -1,11 +1,13 @@
 package org.jxls.demo.guide;
 
 import org.jxls.area.Area;
+import org.jxls.area.XlsArea;
 import org.jxls.builder.AreaBuilder;
 import org.jxls.builder.xls.XlsCommentAreaBuilder;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.transform.Transformer;
+import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +40,7 @@ public class ObjectCollectionDemo {
         Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();
         context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
+        xlsArea.applyAt(new CellRef("Template!A1"), context);
         transformer.write();
         is.close();
         os.close();
