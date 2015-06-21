@@ -6,7 +6,7 @@
 
     <groupId>org.jxls</groupId>
     <artifactId>jxls-demo</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <build>
         <plugins>
@@ -48,17 +48,25 @@
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>[2.0.0,)</version>
         </dependency>
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls-poi</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>[1.0.0,)</version>
         </dependency>
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls-jexcel</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>[1.0.0,)</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jxls</id>
+            <name>Jxls repo at Sourceforge</name>
+            <url>http://jxls.sourceforge.net/repository/releases/</url>
+        </repository>
+    </repositories>
 </project>
