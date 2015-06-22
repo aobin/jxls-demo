@@ -3,10 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.jxls</groupId>
     <artifactId>jxls-demo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Demo of Jxls library</description>
+    <url>http://jxls.sf.net</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Leonid Vysochyn</name>
+            <email>leonate@gmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:http://bitbucket.org/leonate/jxls-demo.git</connection>
+        <developerConnection>scm:git:https://bitbucket.org/leonate/jxls-demo.git</developerConnection>
+        <url>https://bitbucket.org/leonate/jxls-demo</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
@@ -42,6 +63,17 @@
                     <!--</systemProperties>-->
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -62,11 +94,4 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>jxls</id>
-            <name>Jxls repo at Sourceforge</name>
-            <url>http://jxls.sourceforge.net/repository/releases/</url>
-        </repository>
-    </repositories>
 </project>
