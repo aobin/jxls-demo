@@ -25,6 +25,7 @@ public class MainDemo {
         MultipleSheetDemo.main(args);
         XlsCommentBuilderDemo.main(args);
         ImageDemo.main(args);
+        DynamicColumnsDemo.main(args);
 
         XlsReaderDemo.main(args);
 

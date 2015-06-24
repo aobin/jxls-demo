@@ -31,3 +31,5 @@ List of examples
 16. *org.jxls.demo.StressXlsxDemo*                        - Stress Xlsx demo
 17. *org.jxls.demo.SxssfDemo*                             - Stress Sxssf demo
 18. *org.jxls.demo.StressDemo*                            - Stress demo
+19. *org.jxls.demo.DynamicColumnsDemo*                    - Dynamic columns+rows demo
+20. *org.jxls.demo.reader.XlsReaderDemo*                  - XLS Reader demo
