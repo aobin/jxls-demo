@@ -10,9 +10,12 @@ import java.util.List;
  */
 public class Department {
     private String name;
-    private Employee chief;
+    private Employee chief = new Employee();
     private List<Employee> staff = new ArrayList<Employee>();
     private String link;
+
+    public Department() {
+    }
 
     public Department(String name) {
         this.name = name;

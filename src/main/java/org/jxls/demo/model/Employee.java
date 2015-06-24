@@ -20,6 +20,9 @@ public class Employee {
     static Random random = new Random(System.currentTimeMillis());
     static long current = System.currentTimeMillis();
 
+    public Employee() {
+    }
+
     public Employee(String name, int age, Double payment, Double bonus) {
         this.name = name;
         this.age = age;
