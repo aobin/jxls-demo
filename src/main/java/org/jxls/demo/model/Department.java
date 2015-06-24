@@ -70,7 +70,7 @@ public class Department {
         this.chief = chief;
     }
 
-    public List getStaff() {
+    public List<Employee> getStaff() {
         return staff;
     }
 

@@ -2,6 +2,7 @@ package org.jxls.demo.reader;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.jxls.demo.model.Department;
+import org.jxls.demo.model.Employee;
 import org.jxls.reader.ReaderBuilder;
 import org.jxls.reader.XLSReader;
 import org.slf4j.Logger;
@@ -46,6 +47,10 @@ public class XlsReaderDemo {
         logger.info("Read " + departments.size() + " departments into `departments` list");
         logger.info("Read " + department.getName() + " department into `department` variable");
         logger.info("Read " + hrDepartment.getHeadcount() + " employees in `hrDepartment`");
+        logger.info("Printing IT department employees and birthdays:");
+        for(Employee employee : department.getStaff()){
+            logger.info(employee.getName() + ": " + employee.getBirthDate());
+        }
         xlsInputStream.close();
         xmlInputStream.close();
     }
