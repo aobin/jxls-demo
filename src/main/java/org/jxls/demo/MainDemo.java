@@ -1,5 +1,6 @@
 package org.jxls.demo;
 
+import org.jxls.command.GridCommand;
 import org.jxls.demo.guide.*;
 import org.jxls.demo.reader.XlsReaderDemo;
 import org.jxls.util.TransformerFactory;
@@ -26,6 +27,7 @@ public class MainDemo {
         XlsCommentBuilderDemo.main(args);
         ImageDemo.main(args);
         DynamicColumnsDemo.main(args);
+        GridCommandDemo.main(args);
 
         XlsReaderDemo.main(args);
 
