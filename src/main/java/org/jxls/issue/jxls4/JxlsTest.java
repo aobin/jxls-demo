@@ -33,7 +33,7 @@ public class JxlsTest {
             List<Company> c = new ArrayList<>();
             c.add(new Company(1L, "A").addBoy("Karl").addBoy("Joseph").addGirl("Janet").addGirl("Lian").addGirl("Josephine"));
             c.add(new Company(2L, "B").addBoy("Karl 2").addBoy("Joseph 2").addBoy("John").addGirl("Janet 2").addGirl("Lian 2").addGirl("Josephine 2").addGirl("Jane"));
-            c.add(new Company(3L, "B").addBoy("Karl 2").addBoy("Joseph 2").addBoy("John").addGirl("Janet 2").addGirl("Lian 2").addGirl("Josephine 2"));
+            c.add(new Company(3L, "B").addBoy("Karl 3").addBoy("Joseph 3").addBoy("John").addGirl("Janet 3").addGirl("Lian 3").addGirl("Josephine 3"));
             context.putVar("companies", c);
             for (Area xlsArea : xlsAreaList) {
                 xlsArea.applyAt(/*
