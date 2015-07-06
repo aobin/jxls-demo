@@ -3,6 +3,7 @@ package org.jxls.demo;
 import org.jxls.area.Area;
 import org.jxls.builder.AreaBuilder;
 import org.jxls.builder.xls.XlsCommentAreaBuilder;
+import org.jxls.command.GridCommand;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.demo.guide.Employee;
@@ -44,7 +45,14 @@ public class GridCommandDemo {
             data.add( convertEmployeeToList(employee));
         }
         context.putVar("data", data);
-        xlsArea.applyAt(new CellRef("Template!A1"), context);
+        xlsArea.applyAt(new CellRef("Sheet1!A1"), context);
+
+        GridCommand gridCommand = (GridCommand) xlsArea.getCommandDataList().get(0).getCommand();
+        gridCommand.setProps("name,payment,birthDate");
+        context.putVar("headers", Arrays.asList("Name", "Payment", "Birthday"));
+        context.putVar("data", employees);
+        xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
+
         transformer.write();
         is.close();
         os.close();
