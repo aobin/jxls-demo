@@ -38,21 +38,22 @@ public class GridCommandDemo {
         AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
+        // set headers
         Context context = new Context();
         context.putVar("headers", Arrays.asList("Name", "Birthday", "Payment"));
+        // set data source as a list of lists
         List<List<Object>> data = new ArrayList<>();
         for(Employee employee : employees){
             data.add( convertEmployeeToList(employee));
         }
         context.putVar("data", data);
         xlsArea.applyAt(new CellRef("Sheet1!A1"), context);
-
+        // set data source as a list of Employee objects
         GridCommand gridCommand = (GridCommand) xlsArea.getCommandDataList().get(0).getCommand();
         gridCommand.setProps("name,payment,birthDate");
         context.putVar("headers", Arrays.asList("Name", "Payment", "Birthday"));
         context.putVar("data", employees);
         xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
-
         transformer.write();
         is.close();
         os.close();
