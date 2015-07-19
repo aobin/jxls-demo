@@ -33,3 +33,5 @@ List of examples
 18. *org.jxls.demo.StressDemo*                            - Stress demo
 19. *org.jxls.demo.DynamicColumnsDemo*                    - Dynamic columns+rows demo
 20. *org.jxls.demo.reader.XlsReaderDemo*                  - XLS Reader demo
+21. *org.jxls.demo.GridCommandDemo*                       - Grid Command demo
+22. *org.jxls.demo.SimpleExportDemo*                      - Simple export demo
