@@ -34,6 +34,7 @@ public class MainDemo {
         XlsReaderDemo.main(args);
 
         JxlsTest.main(args);
+        JexlCustomFunctionDemo.main(args);
 
         String transformerName = TransformerFactory.getTransformerName();
 

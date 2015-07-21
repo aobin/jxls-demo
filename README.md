@@ -35,3 +35,4 @@ List of examples
 20. *org.jxls.demo.reader.XlsReaderDemo*                  - XLS Reader demo
 21. *org.jxls.demo.GridCommandDemo*                       - Grid Command demo
 22. *org.jxls.demo.SimpleExportDemo*                      - Simple export demo
+23. *org.jxls.demo.JexlCustomFunctionDemo*                - JEXL custom function definition demo
