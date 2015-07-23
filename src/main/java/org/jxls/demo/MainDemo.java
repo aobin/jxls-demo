@@ -35,6 +35,7 @@ public class MainDemo {
 
         JxlsTest.main(args);
         JexlCustomFunctionDemo.main(args);
+        CustomExpressionNotationDemo.main(args);
 
         String transformerName = TransformerFactory.getTransformerName();
 

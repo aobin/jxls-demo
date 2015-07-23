@@ -46,7 +46,7 @@ public class ObjectCollectionDemo {
         os.close();
     }
 
-    private static List<Employee> generateSampleEmployeeData() throws ParseException {
+    public static List<Employee> generateSampleEmployeeData() throws ParseException {
         List<Employee> employees = new ArrayList<Employee>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MMM-dd", Locale.US);
         employees.add( new Employee("Elsa", dateFormat.parse("1970-Jul-10"), 1500, 0.15) );
