@@ -37,7 +37,7 @@ public class XlsCommentBuilderDemo {
         InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template);
         OutputStream os = new FileOutputStream(output);
         Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer, false);
         List<Area> xlsAreaList = areaBuilder.build();
         Area xlsArea = xlsAreaList.get(0);
         Context context = transformer.createInitialContext();
