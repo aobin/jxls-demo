@@ -9,13 +9,12 @@ import org.jxls.common.Context;
 import org.jxls.transform.poi.PoiContext;
 import org.jxls.transform.poi.PoiTransformer;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Main {
+public class Issue7Demo {
 
     public static MainModel generateData() {
         MainModel mainModel = new MainModel();
@@ -38,8 +37,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         XlsCommentAreaBuilder.addCommandMapping("each", EachRightCommand.class);
-        InputStream fis = Main.class.getResourceAsStream("issue7_template.xlsx"); //new FileInputStream("issue7_template.xlsx");
-        FileOutputStream fos = new FileOutputStream("issue7_output.xlsx");
+        InputStream fis = Issue7Demo.class.getResourceAsStream("issue7_template.xlsx"); //new FileInputStream("issue7_template.xlsx");
+        FileOutputStream fos = new FileOutputStream("target/issue7_output.xlsx");
 
         Workbook workbook = WorkbookFactory.create(fis);
         PoiTransformer transformer = PoiTransformer.createTransformer(workbook);

@@ -15,14 +15,14 @@ import org.jxls.util.TransformerFactory;
  *
  * @author pernik
  */
-public class JxlsTest {
+public class Issue4Demo {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
-            InputStream is = (JxlsTest.class.getResourceAsStream("issue4_template.xlsx"));
+            InputStream is = (Issue4Demo.class.getResourceAsStream("issue4_template.xlsx"));
             OutputStream os = new FileOutputStream("target/issue4_output.xlsx");
             Transformer transformer = TransformerFactory.createTransformer(is, os);
             AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
