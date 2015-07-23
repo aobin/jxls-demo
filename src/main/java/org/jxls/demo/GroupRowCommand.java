@@ -34,7 +34,7 @@ public class GroupRowCommand extends AbstractCommand {
         int endRow = cellRef.getRow() + resultSize.getHeight() - 1;
         sheet.groupRow(startRow, endRow);
         if( collapseIf != null && collapseIf.trim().length() > 0){
-            boolean collapseFlag = Util.isConditionTrue(getExpressionEvaluator(), collapseIf, context);
+            boolean collapseFlag = Util.isConditionTrue(getTransformationConfig().getExpressionEvaluator(), collapseIf, context);
             sheet.setRowGroupCollapsed(startRow, collapseFlag);
         }
         return resultSize;

@@ -37,7 +37,7 @@ public class JexcelGroupRowCommand extends AbstractCommand {
             WritableSheet sheet = workbook.getSheet(cellRef.getSheetName());
             boolean collapseFlag = false;
             if( collapseIf != null && collapseIf.trim().length() > 0){
-                collapseFlag = Util.isConditionTrue(getExpressionEvaluator(), collapseIf, context);
+                collapseFlag = Util.isConditionTrue(getTransformationConfig().getExpressionEvaluator(), collapseIf, context);
             }
             sheet.setRowGroup(startRow, endRow, collapseFlag);
         }catch(Exception e){

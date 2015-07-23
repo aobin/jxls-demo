@@ -41,7 +41,7 @@ public class JexlCustomFunctionDemo {
         Context context = new Context();
         context.putVar("x", 5);
         context.putVar("y", 10);
-        JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getExpressionEvaluator();
+        JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig().getExpressionEvaluator();
         Map<String, Object> functionMap = new HashMap<>();
         functionMap.put("demo", new JexlCustomFunctionDemo());
         evaluator.getJexlEngine().setFunctions(functionMap);
