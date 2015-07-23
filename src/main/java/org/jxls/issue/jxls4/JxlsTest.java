@@ -22,9 +22,8 @@ public class JxlsTest {
      */
     public static void main(String[] args) {
         try {
-            System.out.println("Input is: "+JxlsTest.class.getResource("template.xlsx"));
-            InputStream is = (JxlsTest.class.getResourceAsStream("template.xlsx"));
-            OutputStream os = new FileOutputStream("target/output.xlsx");
+            InputStream is = (JxlsTest.class.getResourceAsStream("issue4_template.xlsx"));
+            OutputStream os = new FileOutputStream("target/issue4_output.xlsx");
             Transformer transformer = TransformerFactory.createTransformer(is, os);
             AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
             List<Area> xlsAreaList = areaBuilder.build();

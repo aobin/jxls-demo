@@ -38,8 +38,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         XlsCommentAreaBuilder.addCommandMapping("each", EachRightCommand.class);
-        InputStream fis = Main.class.getResourceAsStream("template.xlsx"); //new FileInputStream("template.xlsx");
-        FileOutputStream fos = new FileOutputStream("result.xlsx");
+        InputStream fis = Main.class.getResourceAsStream("issue7_template.xlsx"); //new FileInputStream("issue7_template.xlsx");
+        FileOutputStream fos = new FileOutputStream("issue7_output.xlsx");
 
         Workbook workbook = WorkbookFactory.create(fis);
         PoiTransformer transformer = PoiTransformer.createTransformer(workbook);
