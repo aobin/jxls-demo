@@ -5,6 +5,7 @@ import org.jxls.builder.AreaBuilder;
 import org.jxls.builder.xls.XlsCommentAreaBuilder;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
+import org.jxls.demo.guide.ObjectCollectionDemo;
 import org.jxls.demo.model.Department;
 import org.jxls.demo.model.Employee;
 import org.jxls.transform.Transformer;
@@ -13,13 +14,12 @@ import org.jxls.transform.poi.PoiTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.jxls.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -31,10 +31,29 @@ public class SxssfDemo {
     public static final int DEP_EMPLOYEE_COUNT = 500;
     static Logger logger = LoggerFactory.getLogger(SxssfDemo.class);
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+    public static void main(String[] args) throws IOException, InvalidFormatException, ParseException {
         logger.info("Entering Stress Sxssf demo");
+//        simpleSxssf();
         executeStress1();
         executeStress2();
+    }
+
+    public static void simpleSxssf() throws ParseException, IOException, InvalidFormatException {
+        logger.info("running simple Sxssf demo");
+        InputStream is = SxssfDemo.class.getResourceAsStream("sxssf_template.xlsx");
+        List<org.jxls.demo.guide.Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
+        OutputStream os = new FileOutputStream("target/simple_sxssf_output.xlsx");
+        Workbook workbook = WorkbookFactory.create(is);
+        Transformer transformer = PoiTransformer.createSxssfTransformer(workbook, 5, false);
+        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+        List<Area> xlsAreaList = areaBuilder.build();
+        Area xlsArea = xlsAreaList.get(0);
+        Context context = new Context();
+        context.putVar("employees", employees);
+        xlsArea.applyAt(new CellRef("Result!A1"), context);
+        ((PoiTransformer)transformer).getWorkbook().write(os);
+        is.close();
+        os.close();
     }
 
     public static void executeStress1() throws IOException, InvalidFormatException {
