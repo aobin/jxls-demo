@@ -1,14 +1,7 @@
 package org.jxls.demo.guide;
 
-import org.jxls.area.Area;
-import org.jxls.area.XlsArea;
-import org.jxls.builder.AreaBuilder;
-import org.jxls.builder.xls.XlsCommentAreaBuilder;
-import org.jxls.common.CellRef;
 import org.jxls.common.Context;
-import org.jxls.transform.Transformer;
-import org.jxls.transform.poi.PoiTransformer;
-import org.jxls.util.TransformerFactory;
+import org.jxls.util.JxlsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +27,9 @@ public class ObjectCollectionDemo {
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = ObjectCollectionDemo.class.getResourceAsStream("object_collection_template.xls");
         OutputStream os = new FileOutputStream("target/object_collection_output.xls");
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();
         context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Template!A1"), context);
-        transformer.write();
+        JxlsHelper.getInstance().processTemplate(is, os, context);
         is.close();
         os.close();
     }

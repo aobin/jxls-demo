@@ -42,9 +42,6 @@ public class XlsCommentBuilderDemo {
         Area xlsArea = xlsAreaList.get(0);
         Context context = transformer.createInitialContext();
         context.putVar("departments", departments);
-//        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.jpg");
-//        byte[] imageBytes = IOUtils.toByteArray(imageInputStream);
-//        context.putVar("image", imageBytes);
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
         xlsArea.applyAt(new CellRef("Down!A1"), context);
         xlsArea.processFormulas();
@@ -54,8 +51,6 @@ public class XlsCommentBuilderDemo {
         logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
         xlsArea.applyAt(new CellRef("Right!A1"), context);
         xlsArea.processFormulas();
-//        logger.info("Removing template sheet");
-//        workbook.removeSheetAt(0);
         logger.info("Complete");
         transformer.write();
         logger.info("written to file");

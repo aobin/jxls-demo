@@ -1,14 +1,9 @@
 package org.jxls.demo;
 
-import org.jxls.area.Area;
-import org.jxls.builder.AreaBuilder;
-import org.jxls.builder.xls.XlsCommentAreaBuilder;
-import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.demo.guide.Employee;
 import org.jxls.demo.guide.ObjectCollectionDemo;
-import org.jxls.transform.Transformer;
-import org.jxls.util.TransformerFactory;
+import org.jxls.util.JxlsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,15 +28,9 @@ public class CustomExpressionNotationDemo {
         List<Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
         InputStream is = CustomExpressionNotationDemo.class.getResourceAsStream(TEMPLATE);
         OutputStream os = new FileOutputStream(OUTPUT);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        transformer.getTransformationConfig().buildExpressionNotation("[[", "]]");
         Context context = new Context();
         context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Template!A1"), context);
-        transformer.write();
+        JxlsHelper.getInstance().buildExpressionNotation("[[", "]]").processTemplate(is, os, context);
         is.close();
         os.close();
     }

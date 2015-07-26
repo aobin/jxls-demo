@@ -1,12 +1,7 @@
 package org.jxls.demo.guide;
 
-import org.jxls.area.Area;
-import org.jxls.builder.AreaBuilder;
-import org.jxls.builder.xls.XlsCommentAreaBuilder;
-import org.jxls.common.CellRef;
 import org.jxls.common.Context;
-import org.jxls.transform.Transformer;
-import org.jxls.util.TransformerFactory;
+import org.jxls.util.JxlsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,14 +27,9 @@ public class NestedCommandDemo {
         List<Employee> employees = generateSampleEmployeeData();
         InputStream is = NestedCommandDemo.class.getResourceAsStream("nested_command_template.xls");
         OutputStream os = new FileOutputStream("target/nested_command_output.xls");
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
         Context context = new Context();
         context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        transformer.write();
+        JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
         is.close();
         os.close();
     }

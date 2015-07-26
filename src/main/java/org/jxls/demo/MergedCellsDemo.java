@@ -1,14 +1,8 @@
 package org.jxls.demo;
 
-import org.jxls.area.Area;
-import org.jxls.builder.AreaBuilder;
-import org.jxls.builder.xls.XlsCommentAreaBuilder;
-import org.jxls.command.EachCommand;
-import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.demo.model.Department;
-import org.jxls.transform.Transformer;
-import org.jxls.util.TransformerFactory;
+import org.jxls.util.JxlsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,19 +31,9 @@ public class MergedCellsDemo  {
         logger.info("Opening input stream");
         InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template);
         OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = transformer.createInitialContext();
+        Context context = new Context();
         context.putVar("departments", departments);
-        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Sheet1!A1"));
-        xlsArea.applyAt(new CellRef("Sheet1!A1"), context);
-        xlsArea.processFormulas();
-        xlsArea.reset();
-        logger.info("Complete");
-        transformer.write();
-        logger.info("written to file");
+        JxlsHelper.getInstance().processTemplate(is, os, context);
         is.close();
         os.close();
     }
