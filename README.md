@@ -36,4 +36,4 @@ List of examples
 21. *org.jxls.demo.GridCommandDemo*                       - Grid Command demo
 22. *org.jxls.demo.SimpleExportDemo*                      - Simple export demo
 23. *org.jxls.demo.JexlCustomFunctionDemo*                - JEXL custom function definition demo
-23. *org.jxls.demo.CustomExpressionNotationDemo*          - Custom expression notation demo
+24. *org.jxls.demo.CustomExpressionNotationDemo*          - Custom expression notation demo
