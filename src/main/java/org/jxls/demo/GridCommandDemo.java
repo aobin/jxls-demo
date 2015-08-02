@@ -45,7 +45,7 @@ public class GridCommandDemo {
         Context context = new Context();
         context.putVar("headers", Arrays.asList("Name", "Birthday", "Payment"));
         context.putVar("data", employees);
-        JxlsHelper.getInstance().processGridTemplateAtCell(is, os, context, "name,payment,birthDate", "Sheet2!A1");
+        JxlsHelper.getInstance().processGridTemplateAtCell(is, os, context, "name,birthDate,payment", "Sheet2!A1");
         is.close();
         os.close();
     }
