@@ -40,6 +40,7 @@ public class MainDemo {
         Issue11Demo.main(args);
         JexlCustomFunctionDemo.main(args);
         CustomExpressionNotationDemo.main(args);
+        ShiftStrategyDemo.main(args);
 
         String transformerName = TransformerFactory.getTransformerName();
 
