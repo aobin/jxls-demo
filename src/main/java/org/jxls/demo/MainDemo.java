@@ -2,6 +2,7 @@ package org.jxls.demo;
 
 import org.jxls.demo.guide.*;
 import org.jxls.demo.reader.XlsReaderDemo;
+import org.jxls.issue.jxls11.Issue11Demo;
 import org.jxls.issue.jxls4.Issue4Demo;
 import org.jxls.issue.jxls7.Issue7Demo;
 import org.jxls.util.TransformerFactory;
@@ -36,6 +37,7 @@ public class MainDemo {
 
         Issue4Demo.main(args);
         Issue7Demo.main(args);
+        Issue11Demo.main(args);
         JexlCustomFunctionDemo.main(args);
         CustomExpressionNotationDemo.main(args);
 
