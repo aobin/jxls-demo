@@ -34,28 +34,28 @@ public class XlsCommentBuilderDemo {
     public static void execute() throws IOException {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
-        InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer, false);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = transformer.createInitialContext();
-        context.putVar("departments", departments);
-        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
-        xlsArea.applyAt(new CellRef("Down!A1"), context);
-        xlsArea.processFormulas();
-        xlsArea.reset();
-        EachCommand eachCommand = (EachCommand) xlsArea.findCommandByName("each").get(0);
-        eachCommand.setDirection(EachCommand.Direction.RIGHT);
-        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
-        xlsArea.applyAt(new CellRef("Right!A1"), context);
-        xlsArea.processFormulas();
-        logger.info("Complete");
-        transformer.write();
-        logger.info("written to file");
-        is.close();
-        os.close();
+        try(InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer, false);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                Context context = transformer.createInitialContext();
+                context.putVar("departments", departments);
+                logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
+                xlsArea.applyAt(new CellRef("Down!A1"), context);
+                xlsArea.processFormulas();
+                xlsArea.reset();
+                EachCommand eachCommand = (EachCommand) xlsArea.findCommandByName("each").get(0);
+                eachCommand.setDirection(EachCommand.Direction.RIGHT);
+                logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Right!A1"));
+                xlsArea.applyAt(new CellRef("Right!A1"), context);
+                xlsArea.processFormulas();
+                logger.info("Complete");
+                transformer.write();
+                logger.info("written to file");
+            }
+        }
     }
 
 }

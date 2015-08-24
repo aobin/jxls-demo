@@ -29,19 +29,20 @@ public class ObjectCollectionXMLBuilderDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Object Collection XML Builder demo");
         List<Employee> employees = generateSampleEmployeeData();
-        InputStream is = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder_template.xls");
-        OutputStream os = new FileOutputStream("target/object_collection_xmlbuilder_output.xls");
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        InputStream configInputStream = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder.xml");
-        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new Context();
-        context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        transformer.write();
-        is.close();
-        os.close();
+        try(InputStream is = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder_template.xls")) {
+            try (OutputStream os = new FileOutputStream("target/object_collection_xmlbuilder_output.xls")) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                try (InputStream configInputStream = ObjectCollectionXMLBuilderDemo.class.getResourceAsStream("object_collection_xmlbuilder.xml")) {
+                    AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
+                    List<Area> xlsAreaList = areaBuilder.build();
+                    Area xlsArea = xlsAreaList.get(0);
+                    Context context = new Context();
+                    context.putVar("employees", employees);
+                    xlsArea.applyAt(new CellRef("Result!A1"), context);
+                    transformer.write();
+                }
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

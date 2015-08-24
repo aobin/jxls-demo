@@ -31,20 +31,20 @@ public class ImageDemo {
 
     public static void execute() throws IOException {
         logger.info("Opening input stream");
-        InputStream is = ImageDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        XlsArea xlsArea = new XlsArea("Sheet1!A1:N30", transformer);
-        Context context = new Context();
-        InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.png");
-        byte[] imageBytes = Util.toByteArray(imageInputStream);
-        context.putVar("image", imageBytes);
-        XlsArea imgArea = new XlsArea("Sheet1!A5:D15", transformer);
-        xlsArea.addCommand("Sheet1!A4:D15", new ImageCommand("image", ImageType.PNG).addArea(imgArea));
-        xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
-        transformer.write();
-        logger.info("written to file");
-        is.close();
-        os.close();
+        try(InputStream is = ImageDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                XlsArea xlsArea = new XlsArea("Sheet1!A1:N30", transformer);
+                Context context = new Context();
+                InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.png");
+                byte[] imageBytes = Util.toByteArray(imageInputStream);
+                context.putVar("image", imageBytes);
+                XlsArea imgArea = new XlsArea("Sheet1!A5:D15", transformer);
+                xlsArea.addCommand("Sheet1!A4:D15", new ImageCommand("image", ImageType.PNG).addArea(imgArea));
+                xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
+                transformer.write();
+                logger.info("written to file");
+            }
+        }
     }
 }

@@ -24,14 +24,14 @@ public class ParameterizedFormulasDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Parameterized Formulas demo");
         List<Employee> employees = generateSampleEmployeeData();
-        InputStream is = ParameterizedFormulasDemo.class.getResourceAsStream("param_formulas_template.xls");
-        OutputStream os = new FileOutputStream("target/param_formulas_output.xls");
-        Context context = new Context();
-        context.putVar("employees", employees);
-        context.putVar("bonus", 0.1);
-        JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
-        is.close();
-        os.close();
+        try(InputStream is = ParameterizedFormulasDemo.class.getResourceAsStream("param_formulas_template.xls")) {
+            try (OutputStream os = new FileOutputStream("target/param_formulas_output.xls")) {
+                Context context = new Context();
+                context.putVar("employees", employees);
+                context.putVar("bonus", 0.1);
+                JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

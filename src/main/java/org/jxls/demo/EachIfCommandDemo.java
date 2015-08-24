@@ -38,37 +38,37 @@ public class EachIfCommandDemo {
     public static void execute() throws IOException {
         List<Department> departments = createDepartments();
         logger.info("Opening input stream");
-        InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        System.out.println("Creating area");
-        XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
-        XlsArea departmentArea = new XlsArea("Template!A2:G13", transformer);
-        EachCommand departmentEachCommand = new EachCommand("department", "departments", departmentArea);
-        XlsArea employeeArea = new XlsArea("Template!A9:F9", transformer);
-        XlsArea ifArea = new XlsArea("Template!A18:F18", transformer);
-        XlsArea elseArea = new XlsArea("Template!A9:F9", transformer);
-        IfCommand ifCommand = new IfCommand("employee.payment <= 2000", ifArea, elseArea);
-        employeeArea.addCommand(new AreaRef("Template!A9:F9"), ifCommand);
-        Command employeeEachCommand = new EachCommand( "employee", "department.staff", employeeArea);
-        departmentArea.addCommand(new AreaRef("Template!A9:F9"), employeeEachCommand);
-        xlsArea.addCommand(new AreaRef("Template!A2:F12"), departmentEachCommand);
-        Context context = new Context();
-        context.putVar("departments", departments);
-        logger.info("Applying at cell " + new CellRef("Down!B2"));
-        xlsArea.applyAt(new CellRef("Down!B2"), context);
-        xlsArea.processFormulas();
-        logger.info("Setting EachCommand direction to Right");
-        departmentEachCommand.setDirection(EachCommand.Direction.RIGHT);
-        logger.info("Applying at cell " + new CellRef("Right!A1"));
-        xlsArea.reset();
-        xlsArea.applyAt(new CellRef("Right!A1"), context);
-        xlsArea.processFormulas();
-        logger.info("Complete");
-        transformer.write();
-        logger.info("written to file");
-        is.close();
-        os.close();
+        try(InputStream is = EachIfCommandDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                System.out.println("Creating area");
+                XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
+                XlsArea departmentArea = new XlsArea("Template!A2:G13", transformer);
+                EachCommand departmentEachCommand = new EachCommand("department", "departments", departmentArea);
+                XlsArea employeeArea = new XlsArea("Template!A9:F9", transformer);
+                XlsArea ifArea = new XlsArea("Template!A18:F18", transformer);
+                XlsArea elseArea = new XlsArea("Template!A9:F9", transformer);
+                IfCommand ifCommand = new IfCommand("employee.payment <= 2000", ifArea, elseArea);
+                employeeArea.addCommand(new AreaRef("Template!A9:F9"), ifCommand);
+                Command employeeEachCommand = new EachCommand("employee", "department.staff", employeeArea);
+                departmentArea.addCommand(new AreaRef("Template!A9:F9"), employeeEachCommand);
+                xlsArea.addCommand(new AreaRef("Template!A2:F12"), departmentEachCommand);
+                Context context = new Context();
+                context.putVar("departments", departments);
+                logger.info("Applying at cell " + new CellRef("Down!B2"));
+                xlsArea.applyAt(new CellRef("Down!B2"), context);
+                xlsArea.processFormulas();
+                logger.info("Setting EachCommand direction to Right");
+                departmentEachCommand.setDirection(EachCommand.Direction.RIGHT);
+                logger.info("Applying at cell " + new CellRef("Right!A1"));
+                xlsArea.reset();
+                xlsArea.applyAt(new CellRef("Right!A1"), context);
+                xlsArea.processFormulas();
+                logger.info("Complete");
+                transformer.write();
+                logger.info("written to file");
+            }
+        }
     }
 
     public static List<Department> createDepartments() {

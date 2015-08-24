@@ -37,18 +37,18 @@ public class Issue7Demo {
 
     public static void main(String[] args) throws Exception {
         XlsCommentAreaBuilder.addCommandMapping("each", EachRightCommand.class);
-        InputStream fis = Issue7Demo.class.getResourceAsStream("issue7_template.xlsx"); //new FileInputStream("issue7_template.xlsx");
-        FileOutputStream fos = new FileOutputStream("target/issue7_output.xlsx");
+        try(InputStream fis = Issue7Demo.class.getResourceAsStream("issue7_template.xlsx")) {
+            try(FileOutputStream fos = new FileOutputStream("target/issue7_output.xlsx")) {
 
-        Workbook workbook = WorkbookFactory.create(fis);
-        PoiTransformer transformer = PoiTransformer.createTransformer(workbook);
-        Area area = (new XlsCommentAreaBuilder(transformer)).build().get(0);
-        Context ctx = new PoiContext();
-        ctx.putVar("re", generateData());
-        area.applyAt(new CellRef(workbook.getSheetAt(0).getSheetName() + "!A1"), ctx);
-        area.processFormulas();
-        workbook.write(fos);
-        fis.close();
-        fos.close();
+                Workbook workbook = WorkbookFactory.create(fis);
+                PoiTransformer transformer = PoiTransformer.createTransformer(workbook);
+                Area area = (new XlsCommentAreaBuilder(transformer)).build().get(0);
+                Context ctx = new PoiContext();
+                ctx.putVar("re", generateData());
+                area.applyAt(new CellRef(workbook.getSheetAt(0).getSheetName() + "!A1"), ctx);
+                area.processFormulas();
+                workbook.write(fos);
+            }
+        }
     }
 }

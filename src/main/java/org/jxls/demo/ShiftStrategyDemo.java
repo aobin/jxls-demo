@@ -23,12 +23,12 @@ public class ShiftStrategyDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Shift Strategy Demo");
         List<Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
-        InputStream is = ShiftStrategyDemo.class.getResourceAsStream("shiftstrategy_template.xlsx");
-        OutputStream os = new FileOutputStream("target/shiftstrategy_output.xlsx");
-        Context context = new Context();
-        context.putVar("employees", employees);
-        JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
-        is.close();
-        os.close();
+        try(InputStream is = ShiftStrategyDemo.class.getResourceAsStream("shiftstrategy_template.xlsx")) {
+            try (OutputStream os = new FileOutputStream("target/shiftstrategy_output.xlsx")) {
+                Context context = new Context();
+                context.putVar("employees", employees);
+                JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
+            }
+        }
     }
 }

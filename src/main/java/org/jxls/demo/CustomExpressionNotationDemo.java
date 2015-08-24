@@ -26,13 +26,13 @@ public class CustomExpressionNotationDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Custom Expression Notation demo");
         List<Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
-        InputStream is = CustomExpressionNotationDemo.class.getResourceAsStream(TEMPLATE);
-        OutputStream os = new FileOutputStream(OUTPUT);
-        Context context = new Context();
-        context.putVar("employees", employees);
-        JxlsHelper.getInstance().buildExpressionNotation("[[", "]]").processTemplate(is, os, context);
-        is.close();
-        os.close();
+        try(InputStream is = CustomExpressionNotationDemo.class.getResourceAsStream(TEMPLATE)) {
+            try (OutputStream os = new FileOutputStream(OUTPUT)) {
+                Context context = new Context();
+                context.putVar("employees", employees);
+                JxlsHelper.getInstance().buildExpressionNotation("[[", "]]").processTemplate(is, os, context);
+            }
+        }
     }
 
 }

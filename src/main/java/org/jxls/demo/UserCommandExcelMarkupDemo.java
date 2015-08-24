@@ -38,19 +38,20 @@ public class UserCommandExcelMarkupDemo {
     public static void execute() throws IOException, InvalidFormatException, ParseException {
         List<Employee> employees = generateSampleEmployeeData();
         logger.info("Opening input stream");
-        InputStream is = UserCommandExcelMarkupDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        XlsCommentAreaBuilder.addCommandMapping("groupRow", GroupRowCommand.class);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new Context();
-        context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        transformer.write();
-        is.close();
-        logger.info("Finished UserCommandExcelMarkupDemo");
+        try(InputStream is = UserCommandExcelMarkupDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+                XlsCommentAreaBuilder.addCommandMapping("groupRow", GroupRowCommand.class);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                Context context = new Context();
+                context.putVar("employees", employees);
+                xlsArea.applyAt(new CellRef("Result!A1"), context);
+                transformer.write();
+                logger.info("Finished UserCommandExcelMarkupDemo");
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

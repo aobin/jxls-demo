@@ -29,19 +29,19 @@ public class ObjectCollectionJavaAPIDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Object Collection JavaAPI demo");
         List<Employee> employees = generateSampleEmployeeData();
-        InputStream is = ObjectCollectionDemo.class.getResourceAsStream("object_collection_javaapi_template.xls");
-        OutputStream os = new FileOutputStream("target/object_collection_javaapi_output.xls");
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        XlsArea xlsArea = new XlsArea("Template!A1:D4", transformer);
-        XlsArea employeeArea = new XlsArea("Template!A4:D4", transformer);
-        EachCommand employeeEachCommand = new EachCommand("employee", "employees", employeeArea);
-        xlsArea.addCommand("A4:D4", employeeEachCommand);
-        Context context = new Context();
-        context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        transformer.write();
-        is.close();
-        os.close();
+        try(InputStream is = ObjectCollectionDemo.class.getResourceAsStream("object_collection_javaapi_template.xls")) {
+            try (OutputStream os = new FileOutputStream("target/object_collection_javaapi_output.xls")) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                XlsArea xlsArea = new XlsArea("Template!A1:D4", transformer);
+                XlsArea employeeArea = new XlsArea("Template!A4:D4", transformer);
+                EachCommand employeeEachCommand = new EachCommand("employee", "employees", employeeArea);
+                xlsArea.addCommand("A4:D4", employeeEachCommand);
+                Context context = new Context();
+                context.putVar("employees", employees);
+                xlsArea.applyAt(new CellRef("Result!A1"), context);
+                transformer.write();
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

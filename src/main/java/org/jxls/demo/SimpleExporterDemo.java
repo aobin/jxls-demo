@@ -26,21 +26,21 @@ public class SimpleExporterDemo {
 
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Simple Export demo");
-        OutputStream os1 = new FileOutputStream("target/simple_export_output1.xls");
-        List<Employee> employees = generateSampleEmployeeData();
-        List<String> headers = Arrays.asList("Name", "Birthday", "Payment");
-        SimpleExporter exporter = new SimpleExporter();
-        exporter.gridExport(headers, employees, "name, birthDate, payment", os1);
+        try(OutputStream os1 = new FileOutputStream("target/simple_export_output1.xls")) {
+            List<Employee> employees = generateSampleEmployeeData();
+            List<String> headers = Arrays.asList("Name", "Birthday", "Payment");
+            SimpleExporter exporter = new SimpleExporter();
+            exporter.gridExport(headers, employees, "name, birthDate, payment", os1);
 
-        // now let's show how to register custom template
-        InputStream is = SimpleExporterDemo.class.getResourceAsStream(template);
-        OutputStream os2 = new FileOutputStream("target/simple_export_output2.xlsx");
-        exporter.registerGridTemplate(is);
-        headers = Arrays.asList("Name", "Payment", "Birth Date");
-        exporter.gridExport(headers, employees, "name,payment, birthDate,", os2);
-        is.close();
-        os1.close();
-        os2.close();
+            // now let's show how to register custom template
+            try (InputStream is = SimpleExporterDemo.class.getResourceAsStream(template)) {
+                try (OutputStream os2 = new FileOutputStream("target/simple_export_output2.xlsx")) {
+                    exporter.registerGridTemplate(is);
+                    headers = Arrays.asList("Name", "Payment", "Birth Date");
+                    exporter.gridExport(headers, employees, "name,payment, birthDate,", os2);
+                }
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

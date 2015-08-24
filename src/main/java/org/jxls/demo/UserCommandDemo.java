@@ -35,23 +35,25 @@ public class UserCommandDemo {
     public static void execute() throws IOException {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
-        InputStream is = EachIfCommandDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        System.out.println("Creating areas");
-        InputStream configInputStream = UserCommandDemo.class.getResourceAsStream(xmlConfig);
-        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new Context();
-        context.putVar("departments", departments);
-        logger.info("Applying area at cell " + new CellRef("Down!A1"));
-        xlsArea.applyAt(new CellRef("Down!A1"), context);
-        xlsArea.processFormulas();
-        logger.info("Complete");
-        transformer.write();
-        logger.info("Written to file");
-        is.close();
+        try(InputStream is = EachIfCommandDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                System.out.println("Creating areas");
+                try (InputStream configInputStream = UserCommandDemo.class.getResourceAsStream(xmlConfig)) {
+                    AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
+                    List<Area> xlsAreaList = areaBuilder.build();
+                    Area xlsArea = xlsAreaList.get(0);
+                    Context context = new Context();
+                    context.putVar("departments", departments);
+                    logger.info("Applying area at cell " + new CellRef("Down!A1"));
+                    xlsArea.applyAt(new CellRef("Down!A1"), context);
+                    xlsArea.processFormulas();
+                    logger.info("Complete");
+                    transformer.write();
+                    logger.info("Written to file");
+                }
+            }
+        }
     }
 
 }

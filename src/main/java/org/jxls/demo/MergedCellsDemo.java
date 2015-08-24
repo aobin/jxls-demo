@@ -29,12 +29,12 @@ public class MergedCellsDemo  {
     public static void execute() throws IOException {
         List<Department> departments = EachIfCommandDemo.createDepartments();
         logger.info("Opening input stream");
-        InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Context context = new Context();
-        context.putVar("departments", departments);
-        JxlsHelper.getInstance().processTemplate(is, os, context);
-        is.close();
-        os.close();
+        try(InputStream is = XlsCommentBuilderDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Context context = new Context();
+                context.putVar("departments", departments);
+                JxlsHelper.getInstance().processTemplate(is, os, context);
+            }
+        }
     }
 }

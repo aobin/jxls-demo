@@ -23,12 +23,12 @@ public class Issue11Demo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running ComplexFormulas issue#11 demo");
         List<Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
-        InputStream is = Issue11Demo.class.getResourceAsStream("issue11_template.xls");
-        OutputStream os = new FileOutputStream("target/issue11_output.xls");
-        Context context = new Context();
-        context.putVar("activities", employees);
-        JxlsHelper.getInstance().processTemplate(is, os, context);
-        is.close();
-        os.close();
+        try(InputStream is = Issue11Demo.class.getResourceAsStream("issue11_template.xls")) {
+            try (OutputStream os = new FileOutputStream("target/issue11_output.xls")) {
+                Context context = new Context();
+                context.putVar("activities", employees);
+                JxlsHelper.getInstance().processTemplate(is, os, context);
+            }
+        }
     }
 }

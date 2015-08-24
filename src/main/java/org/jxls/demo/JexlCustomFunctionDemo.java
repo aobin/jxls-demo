@@ -32,23 +32,23 @@ public class JexlCustomFunctionDemo {
 
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running JEXL Custom Function demo");
-        InputStream is = JexlCustomFunctionDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new Context();
-        context.putVar("x", 5);
-        context.putVar("y", 10);
-        JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig().getExpressionEvaluator();
-        Map<String, Object> functionMap = new HashMap<>();
-        functionMap.put("demo", new JexlCustomFunctionDemo());
-        evaluator.getJexlEngine().setFunctions(functionMap);
-        xlsArea.applyAt(new CellRef("Sheet1!A1"), context);
-        transformer.write();
-        is.close();
-        os.close();
+        try(InputStream is = JexlCustomFunctionDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                Context context = new Context();
+                context.putVar("x", 5);
+                context.putVar("y", 10);
+                JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig().getExpressionEvaluator();
+                Map<String, Object> functionMap = new HashMap<>();
+                functionMap.put("demo", new JexlCustomFunctionDemo());
+                evaluator.getJexlEngine().setFunctions(functionMap);
+                xlsArea.applyAt(new CellRef("Sheet1!A1"), context);
+                transformer.write();
+            }
+        }
     }
 
     public Integer mySum(Integer x, Integer y){

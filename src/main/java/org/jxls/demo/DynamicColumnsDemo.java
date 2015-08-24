@@ -47,24 +47,24 @@ public class DynamicColumnsDemo {
 
         // loading areas and commands using XmlAreaBuilder
         logger.info("Opening input stream");
-        InputStream is = DynamicColumnsDemo.class.getResourceAsStream(TEMPLATE);
-        OutputStream os = new FileOutputStream(OUTPUT);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        InputStream configInputStream = DynamicColumnsDemo.class.getResourceAsStream(DYNAMIC_COLUMNS_DEMO_XML_CONFIG);
-        AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        // creating context
-        Context context = transformer.createInitialContext();
-        context.putVar("headers", headers);
-        context.putVar("rows", rows);
-        // applying transformation
-        logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Result!A1"));
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        // saving the results to file
-        transformer.write();
-        logger.info("Complete");
-        is.close();
-        os.close();
+        try(InputStream is = DynamicColumnsDemo.class.getResourceAsStream(TEMPLATE)) {
+            try (OutputStream os = new FileOutputStream(OUTPUT)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                InputStream configInputStream = DynamicColumnsDemo.class.getResourceAsStream(DYNAMIC_COLUMNS_DEMO_XML_CONFIG);
+                AreaBuilder areaBuilder = new XmlAreaBuilder(configInputStream, transformer);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                // creating context
+                Context context = transformer.createInitialContext();
+                context.putVar("headers", headers);
+                context.putVar("rows", rows);
+                // applying transformation
+                logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Result!A1"));
+                xlsArea.applyAt(new CellRef("Result!A1"), context);
+                // saving the results to file
+                transformer.write();
+                logger.info("Complete");
+            }
+        }
     }
 }

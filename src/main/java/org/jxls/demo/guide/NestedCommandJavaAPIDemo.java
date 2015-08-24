@@ -30,23 +30,23 @@ public class NestedCommandJavaAPIDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Nested Command JavaAPI demo");
         List<Employee> employees = generateSampleEmployeeData();
-        InputStream is = NestedCommandJavaAPIDemo.class.getResourceAsStream("nested_command_javaapi_template.xls");
-        OutputStream os = new FileOutputStream("target/nested_command_javaapi_output.xls");
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        XlsArea xlsArea = new XlsArea("Template!A1:D4", transformer);
-        XlsArea employeeArea = new XlsArea("Template!A4:D4", transformer);
-        EachCommand employeeEachCommand = new EachCommand("employee", "employees", employeeArea);
-        xlsArea.addCommand("A4:D4", employeeEachCommand);
-        XlsArea ifArea = new XlsArea("Template!A6:D6", transformer);
-        XlsArea elseArea = new XlsArea("Template!A4:D4", transformer);
-        IfCommand ifCommand = new IfCommand("employee.payment <= 2000", ifArea, elseArea);
-        employeeArea.addCommand("Template!A4:D4", ifCommand);
-        Context context = new Context();
-        context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        transformer.write();
-        is.close();
-        os.close();
+        try(InputStream is = NestedCommandJavaAPIDemo.class.getResourceAsStream("nested_command_javaapi_template.xls")) {
+            try(OutputStream os = new FileOutputStream("target/nested_command_javaapi_output.xls")) {
+                        Transformer transformer = TransformerFactory.createTransformer(is, os);
+                        XlsArea xlsArea = new XlsArea("Template!A1:D4", transformer);
+                        XlsArea employeeArea = new XlsArea("Template!A4:D4", transformer);
+                        EachCommand employeeEachCommand = new EachCommand("employee", "employees", employeeArea);
+                        xlsArea.addCommand("A4:D4", employeeEachCommand);
+                        XlsArea ifArea = new XlsArea("Template!A6:D6", transformer);
+                        XlsArea elseArea = new XlsArea("Template!A4:D4", transformer);
+                        IfCommand ifCommand = new IfCommand("employee.payment <= 2000", ifArea, elseArea);
+                        employeeArea.addCommand("Template!A4:D4", ifCommand);
+                        Context context = new Context();
+                        context.putVar("employees", employees);
+                        xlsArea.applyAt(new CellRef("Result!A1"), context);
+                        transformer.write();
+                    }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

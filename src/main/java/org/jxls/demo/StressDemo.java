@@ -39,22 +39,22 @@ public class StressDemo {
         logger.info("Generating " + EMPLOYEE_COUNT + " employees..");
         List<Employee> employees = Employee.generate(EMPLOYEE_COUNT);
         logger.info("Created " + employees.size() + " employees");
-        InputStream is = StressDemo.class.getResourceAsStream("stress1.xls");
-        OutputStream os = new FileOutputStream("target/stress1_output.xls");
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = transformer.createInitialContext();
-        context.putVar("employees", employees);
-        long startTime = System.nanoTime();
-        xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
-        xlsArea.processFormulas();
-        long endTime = System.nanoTime();
-        System.out.println("Stress demo 1 time (s): " + (endTime - startTime)/1000000000);
-        transformer.write();
-        is.close();
-        os.close();
+        try(InputStream is = StressDemo.class.getResourceAsStream("stress1.xls")) {
+            try (OutputStream os = new FileOutputStream("target/stress1_output.xls")) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                Context context = transformer.createInitialContext();
+                context.putVar("employees", employees);
+                long startTime = System.nanoTime();
+                xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
+                xlsArea.processFormulas();
+                long endTime = System.nanoTime();
+                System.out.println("Stress demo 1 time (s): " + (endTime - startTime) / 1000000000);
+                transformer.write();
+            }
+        }
     }
 
     public static void executeStress2() throws IOException, InvalidFormatException {
@@ -62,22 +62,22 @@ public class StressDemo {
         logger.info("Generating " + DEPARTMENT_COUNT + " departments with " + DEP_EMPLOYEE_COUNT + " employees in each");
         List<Department> departments = Department.generate(DEPARTMENT_COUNT, DEP_EMPLOYEE_COUNT);
         logger.info("Created " + departments.size() + " departments");
-        InputStream is = StressDemo.class.getResourceAsStream("stress2.xls");
-        OutputStream os = new FileOutputStream("target/stress2_output.xls");
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = transformer.createInitialContext();
-        context.putVar("departments", departments);
-        long startTime = System.nanoTime();
-        xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
-        xlsArea.processFormulas();
-        long endTime = System.nanoTime();
-        System.out.println("Stress demo 2 time (s): " + (endTime - startTime)/1000000000);
-        transformer.write();
-        is.close();
-        os.close();
+        try(InputStream is = StressDemo.class.getResourceAsStream("stress2.xls")) {
+            try (OutputStream os = new FileOutputStream("target/stress2_output.xls")) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                Context context = transformer.createInitialContext();
+                context.putVar("departments", departments);
+                long startTime = System.nanoTime();
+                xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
+                xlsArea.processFormulas();
+                long endTime = System.nanoTime();
+                System.out.println("Stress demo 2 time (s): " + (endTime - startTime) / 1000000000);
+                transformer.write();
+            }
+        }
     }
 
 }

@@ -31,27 +31,26 @@ public class XlsReaderDemo {
 
     public static void execute() throws IOException, SAXException, InvalidFormatException {
         logger.info("Reading xml config file and constructing XLSReader");
-        InputStream xmlInputStream = XlsReaderDemo.class.getResourceAsStream(xmlConfig);
-        XLSReader reader = ReaderBuilder.buildFromXML(xmlInputStream);
-        InputStream xlsInputStream = XlsReaderDemo.class.getResourceAsStream(dataFile);
-
-        Department department = new Department();
-        Department hrDepartment = new Department();
-        List<Department> departments = new ArrayList<>();
-        Map<String, Object> beans = new HashMap<>();
-        beans.put("department", department);
-        beans.put("hrDepartment", hrDepartment);
-        beans.put("departments", departments);
-        logger.info("Reading the data...");
-        reader.read( xlsInputStream, beans);
-        logger.info("Read " + departments.size() + " departments into `departments` list");
-        logger.info("Read " + department.getName() + " department into `department` variable");
-        logger.info("Read " + hrDepartment.getHeadcount() + " employees in `hrDepartment`");
-        logger.info("Printing IT department employees and birthdays:");
-        for(Employee employee : department.getStaff()){
-            logger.info(employee.getName() + ": " + employee.getBirthDate());
+        try(InputStream xmlInputStream = XlsReaderDemo.class.getResourceAsStream(xmlConfig)) {
+            XLSReader reader = ReaderBuilder.buildFromXML(xmlInputStream);
+            try (InputStream xlsInputStream = XlsReaderDemo.class.getResourceAsStream(dataFile)) {
+                Department department = new Department();
+                Department hrDepartment = new Department();
+                List<Department> departments = new ArrayList<>();
+                Map<String, Object> beans = new HashMap<>();
+                beans.put("department", department);
+                beans.put("hrDepartment", hrDepartment);
+                beans.put("departments", departments);
+                logger.info("Reading the data...");
+                reader.read(xlsInputStream, beans);
+                logger.info("Read " + departments.size() + " departments into `departments` list");
+                logger.info("Read " + department.getName() + " department into `department` variable");
+                logger.info("Read " + hrDepartment.getHeadcount() + " employees in `hrDepartment`");
+                logger.info("Printing IT department employees and birthdays:");
+                for (Employee employee : department.getStaff()) {
+                    logger.info(employee.getName() + ": " + employee.getBirthDate());
+                }
+            }
         }
-        xlsInputStream.close();
-        xmlInputStream.close();
     }
 }

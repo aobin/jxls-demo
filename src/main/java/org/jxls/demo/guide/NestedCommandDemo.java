@@ -25,13 +25,13 @@ public class NestedCommandDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Nested Command demo");
         List<Employee> employees = generateSampleEmployeeData();
-        InputStream is = NestedCommandDemo.class.getResourceAsStream("nested_command_template.xls");
-        OutputStream os = new FileOutputStream("target/nested_command_output.xls");
-        Context context = new Context();
-        context.putVar("employees", employees);
-        JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
-        is.close();
-        os.close();
+        try(InputStream is = NestedCommandDemo.class.getResourceAsStream("nested_command_template.xls")) {
+            try(OutputStream os = new FileOutputStream("target/nested_command_output.xls")) {
+                Context context = new Context();
+                context.putVar("employees", employees);
+                JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

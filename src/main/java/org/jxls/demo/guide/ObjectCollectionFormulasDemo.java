@@ -25,13 +25,13 @@ public class ObjectCollectionFormulasDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Object Collection Formulas demo");
         List<Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
-        InputStream is = ObjectCollectionFormulasDemo.class.getResourceAsStream("formulas_template.xls");
-        OutputStream os = new FileOutputStream("target/formulas_output.xls");
-        Context context = new Context();
-        context.putVar("employees", employees);
-        JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
-        is.close();
-        os.close();
+        try(InputStream is = ObjectCollectionFormulasDemo.class.getResourceAsStream("formulas_template.xls")) {
+            try (OutputStream os = new FileOutputStream("target/formulas_output.xls")) {
+                Context context = new Context();
+                context.putVar("employees", employees);
+                JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
+            }
+        }
     }
 
 }

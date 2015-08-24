@@ -40,20 +40,20 @@ public class SxssfDemo {
 
     public static void simpleSxssf() throws ParseException, IOException, InvalidFormatException {
         logger.info("running simple Sxssf demo");
-        InputStream is = SxssfDemo.class.getResourceAsStream("sxssf_template.xlsx");
-        List<org.jxls.demo.guide.Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
-        OutputStream os = new FileOutputStream("target/simple_sxssf_output.xlsx");
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createSxssfTransformer(workbook, 5, false);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new Context();
-        context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        ((PoiTransformer)transformer).getWorkbook().write(os);
-        is.close();
-        os.close();
+        try(InputStream is = SxssfDemo.class.getResourceAsStream("sxssf_template.xlsx")) {
+            List<org.jxls.demo.guide.Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
+            try (OutputStream os = new FileOutputStream("target/simple_sxssf_output.xlsx")) {
+                Workbook workbook = WorkbookFactory.create(is);
+                Transformer transformer = PoiTransformer.createSxssfTransformer(workbook, 5, false);
+                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                Context context = new Context();
+                context.putVar("employees", employees);
+                xlsArea.applyAt(new CellRef("Result!A1"), context);
+                ((PoiTransformer) transformer).getWorkbook().write(os);
+            }
+        }
     }
 
     public static void executeStress1() throws IOException, InvalidFormatException {
@@ -61,24 +61,24 @@ public class SxssfDemo {
         logger.info("Generating " + EMPLOYEE_COUNT + " employees..");
         List<Employee> employees = Employee.generate(EMPLOYEE_COUNT);
         logger.info("Created " + employees.size() + " employees");
-        InputStream is = SxssfDemo.class.getResourceAsStream("stress1.xlsx");
-        assert is != null;
-        Workbook workbook = WorkbookFactory.create(is);
-        Transformer transformer = PoiTransformer.createSxssfTransformer(workbook);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new PoiContext();
-        context.putVar("employees", employees);
-        long startTime = System.nanoTime();
-        xlsArea.applyAt(new CellRef("NewSheet!A1"), context);
+        try(InputStream is = SxssfDemo.class.getResourceAsStream("stress1.xlsx")) {
+            assert is != null;
+            Workbook workbook = WorkbookFactory.create(is);
+            Transformer transformer = PoiTransformer.createSxssfTransformer(workbook);
+            AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+            List<Area> xlsAreaList = areaBuilder.build();
+            Area xlsArea = xlsAreaList.get(0);
+            Context context = new PoiContext();
+            context.putVar("employees", employees);
+            long startTime = System.nanoTime();
+            xlsArea.applyAt(new CellRef("NewSheet!A1"), context);
 //        xlsArea.processFormulas();
-        long endTime = System.nanoTime();
-        System.out.println("Stress Sxssf demo 1 time (s): " + (endTime - startTime)/1000000000);
-        OutputStream os = new FileOutputStream("target/sxssf_stress1_output.xlsx");
-        ((PoiTransformer)transformer).getWorkbook().write(os);
-        is.close();
-        os.close();
+            long endTime = System.nanoTime();
+            System.out.println("Stress Sxssf demo 1 time (s): " + (endTime - startTime) / 1000000000);
+            try(OutputStream os = new FileOutputStream("target/sxssf_stress1_output.xlsx")) {
+                ((PoiTransformer) transformer).getWorkbook().write(os);
+            }
+        }
     }
 
     public static void executeStress2() throws IOException, InvalidFormatException {
@@ -86,25 +86,24 @@ public class SxssfDemo {
         logger.info("Generating " + DEPARTMENT_COUNT + " departments with " + DEP_EMPLOYEE_COUNT + " employees in each");
         List<Department> departments = Department.generate(DEPARTMENT_COUNT, DEP_EMPLOYEE_COUNT);
         logger.info("Created " + departments.size() + " departments");
-        InputStream is = SxssfDemo.class.getResourceAsStream("stress2.xlsx");
-        assert is != null;
-        Workbook workbook = WorkbookFactory.create(is);
-        // setting rowAccessWindowSize to 600 to be able to process static cells in a single iteration
-        Transformer transformer = PoiTransformer.createSxssfTransformer(workbook, 600, true);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new PoiContext();
-        context.putVar("departments", departments);
-        long startTime = System.nanoTime();
-        xlsArea.applyAt(new CellRef("NewSheet!A1"), context);
+        try(InputStream is = SxssfDemo.class.getResourceAsStream("stress2.xlsx")) {
+            Workbook workbook = WorkbookFactory.create(is);
+            // setting rowAccessWindowSize to 600 to be able to process static cells in a single iteration
+            Transformer transformer = PoiTransformer.createSxssfTransformer(workbook, 600, true);
+            AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+            List<Area> xlsAreaList = areaBuilder.build();
+            Area xlsArea = xlsAreaList.get(0);
+            Context context = new PoiContext();
+            context.putVar("departments", departments);
+            long startTime = System.nanoTime();
+            xlsArea.applyAt(new CellRef("NewSheet!A1"), context);
 //        xlsArea.processFormulas();
-        long endTime = System.nanoTime();
-        System.out.println("Stress Sxssf demo 2 time (s): " + (endTime - startTime)/1000000000);
-        OutputStream os = new FileOutputStream("target/sxssf_stress2_output.xlsx");
-        ((PoiTransformer)transformer).getWorkbook().write(os);
-        is.close();
-        os.close();
+            long endTime = System.nanoTime();
+            System.out.println("Stress Sxssf demo 2 time (s): " + (endTime - startTime) / 1000000000);
+            try (OutputStream os = new FileOutputStream("target/sxssf_stress2_output.xlsx")) {
+                ((PoiTransformer) transformer).getWorkbook().write(os);
+            }
+        }
     }
 
 }

@@ -39,19 +39,20 @@ public class JexcelUserCommandExcelMarkupDemo {
         logger.info("Running JexcelUserCommandExcelMarkupDemo");
         List<Employee> employees = generateSampleEmployeeData();
         logger.info("Opening input stream");
-        InputStream is = JexcelUserCommandExcelMarkupDemo.class.getResourceAsStream(template);
-        OutputStream os = new FileOutputStream(output);
-        Transformer transformer = TransformerFactory.createTransformer(is, os);
-        AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
-        XlsCommentAreaBuilder.addCommandMapping("groupRow", JexcelGroupRowCommand.class);
-        List<Area> xlsAreaList = areaBuilder.build();
-        Area xlsArea = xlsAreaList.get(0);
-        Context context = new Context();
-        context.putVar("employees", employees);
-        xlsArea.applyAt(new CellRef("Result!A1"), context);
-        transformer.write();
-        is.close();
-        logger.info("Finished JexcelUserCommandExcelMarkupDemo");
+        try(InputStream is = JexcelUserCommandExcelMarkupDemo.class.getResourceAsStream(template)) {
+            try (OutputStream os = new FileOutputStream(output)) {
+                Transformer transformer = TransformerFactory.createTransformer(is, os);
+                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
+                XlsCommentAreaBuilder.addCommandMapping("groupRow", JexcelGroupRowCommand.class);
+                List<Area> xlsAreaList = areaBuilder.build();
+                Area xlsArea = xlsAreaList.get(0);
+                Context context = new Context();
+                context.putVar("employees", employees);
+                xlsArea.applyAt(new CellRef("Result!A1"), context);
+                transformer.write();
+                logger.info("Finished JexcelUserCommandExcelMarkupDemo");
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {

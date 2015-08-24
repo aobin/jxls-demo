@@ -29,25 +29,25 @@ public class GridCommandDemo {
 
     private static void executeGridMatrixDemo(List<Employee> employees) throws IOException {
         List<List<Object>> data = createGridData(employees);
-        InputStream is = GridCommandDemo.class.getResourceAsStream("grid_template.xls");
-        OutputStream os = new FileOutputStream("target/grid_output1.xls");
-        Context context = new Context();
-        context.putVar("headers", Arrays.asList("Name", "Birthday", "Payment"));
-        context.putVar("data", data);
-        JxlsHelper.getInstance().processTemplate(is, os, context);
-        is.close();
-        os.close();
+        try(InputStream is = GridCommandDemo.class.getResourceAsStream("grid_template.xls")) {
+            try (OutputStream os = new FileOutputStream("target/grid_output1.xls")) {
+                Context context = new Context();
+                context.putVar("headers", Arrays.asList("Name", "Birthday", "Payment"));
+                context.putVar("data", data);
+                JxlsHelper.getInstance().processTemplate(is, os, context);
+            }
+        }
     }
 
     private static void executeGridObjectListDemo(List<Employee> employees) throws IOException {
-        InputStream is = GridCommandDemo.class.getResourceAsStream("grid_template.xls");
-        OutputStream os = new FileOutputStream("target/grid_output2.xls");
-        Context context = new Context();
-        context.putVar("headers", Arrays.asList("Name", "Birthday", "Payment"));
-        context.putVar("data", employees);
-        JxlsHelper.getInstance().processGridTemplateAtCell(is, os, context, "name,birthDate,payment", "Sheet2!A1");
-        is.close();
-        os.close();
+        try(InputStream is = GridCommandDemo.class.getResourceAsStream("grid_template.xls")) {
+            try(OutputStream os = new FileOutputStream("target/grid_output2.xls")) {
+                Context context = new Context();
+                context.putVar("headers", Arrays.asList("Name", "Birthday", "Payment"));
+                context.putVar("data", employees);
+                JxlsHelper.getInstance().processGridTemplateAtCell(is, os, context, "name,birthDate,payment", "Sheet2!A1");
+            }
+        }
     }
 
     private static List<List<Object>> createGridData(List<Employee> employees) {

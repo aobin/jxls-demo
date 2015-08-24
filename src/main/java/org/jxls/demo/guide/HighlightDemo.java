@@ -25,13 +25,13 @@ public class HighlightDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Highlight demo");
         List<Employee> employees = generateSampleEmployeeData();
-        InputStream is = ObjectCollectionDemo.class.getResourceAsStream("highlight_template.xls");
-        OutputStream os = new FileOutputStream("target/highlight_output.xls");
-        Context context = new Context();
-        context.putVar("employees", employees);
-        JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
-        is.close();
-        os.close();
+        try(InputStream is = ObjectCollectionDemo.class.getResourceAsStream("highlight_template.xls")) {
+            try (OutputStream os = new FileOutputStream("target/highlight_output.xls")) {
+                Context context = new Context();
+                context.putVar("employees", employees);
+                JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
+            }
+        }
     }
 
     private static List<Employee> generateSampleEmployeeData() throws ParseException {
