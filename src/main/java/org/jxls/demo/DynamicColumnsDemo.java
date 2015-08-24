@@ -46,7 +46,6 @@ public class DynamicColumnsDemo {
         }
 
         // loading areas and commands using XmlAreaBuilder
-        logger.info("Opening input stream");
         try(InputStream is = DynamicColumnsDemo.class.getResourceAsStream(TEMPLATE)) {
             try (OutputStream os = new FileOutputStream(OUTPUT)) {
                 Transformer transformer = TransformerFactory.createTransformer(is, os);
