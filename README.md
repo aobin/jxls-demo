@@ -37,4 +37,5 @@ List of examples
 22. *org.jxls.demo.SimpleExportDemo*                      - Simple export demo
 23. *org.jxls.demo.JexlCustomFunctionDemo*                - JEXL custom function definition demo
 24. *org.jxls.demo.CustomExpressionNotationDemo*          - Custom expression notation demo
-24. *org.jxls.demo.ShiftStrategyDemo*                     - Demo of `shiftMode` attribute for *Command*
+25. *org.jxls.demo.ShiftStrategyDemo*                     - Demo of `shiftMode` attribute for *Command*
+26. *org.jxls.demo.guide.ObjectCollectionByColumnsDemo*   - Demo of setting `direction` attribute for *Each-Command* in template

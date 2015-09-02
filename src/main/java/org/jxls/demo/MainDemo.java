@@ -14,6 +14,7 @@ import org.jxls.util.TransformerFactory;
 public class MainDemo {
     public static void main(String[] args) throws Exception {
         ObjectCollectionDemo.main(args);
+        ObjectCollectionByColumnsDemo.main(args);
         ObjectCollectionJavaAPIDemo.main(args);
         ObjectCollectionFormulasDemo.main(args);
         ParameterizedFormulasDemo.main(args);
