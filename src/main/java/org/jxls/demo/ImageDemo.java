@@ -5,7 +5,9 @@ import org.jxls.command.ImageCommand;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.common.ImageType;
+import org.jxls.demo.model.Department;
 import org.jxls.transform.Transformer;
+import org.jxls.util.JxlsHelper;
 import org.jxls.util.TransformerFactory;
 import org.jxls.util.Util;
 import org.slf4j.Logger;
@@ -21,12 +23,15 @@ import java.io.OutputStream;
  */
 public class ImageDemo {
     static Logger logger = LoggerFactory.getLogger(ImageDemo.class);
-    private static String template = "image_demo.xls";
-    private static String output = "target/image_output.xls";
+    private static String template = "image_demo.xlsx";
+    private static String template2 = "image_demo2.xlsx";
+    private static String output = "target/image_output.xlsx";
+    private static String output2 = "target/image_output2.xlsx";
 
     public static void main(String[] args) throws IOException {
         logger.info("Running Image demo");
         execute();
+        execute2();
     }
 
     public static void execute() throws IOException {
@@ -44,6 +49,20 @@ public class ImageDemo {
                 xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
                 transformer.write();
                 logger.info("written to file");
+            }
+        }
+    }
+
+    public static void execute2() throws IOException {
+        try(InputStream is = ImageDemo.class.getResourceAsStream(template2)) {
+            try (OutputStream os = new FileOutputStream(output2)) {
+                Context context = new Context();
+                InputStream imageInputStream = ImageDemo.class.getResourceAsStream("business.png");
+                byte[] imageBytes = Util.toByteArray(imageInputStream);
+                Department department = new Department("Test Department");
+                department.setImage(imageBytes);
+                context.putVar("dep", department);
+                JxlsHelper.getInstance().processTemplate(is, os, context);
             }
         }
     }
