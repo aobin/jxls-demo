@@ -34,6 +34,10 @@ public class MainDemo {
 
         SimpleExporterDemo.main(args);
 
+        FormulaCopyDemo.main(args);
+
+        TwoInnerLoopsDemo.main(args);
+
         XlsReaderDemo.main(args);
 
         Issue4Demo.main(args);
