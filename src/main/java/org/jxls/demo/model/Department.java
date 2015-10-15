@@ -3,6 +3,7 @@ package org.jxls.demo.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Sample Department bean to demostrate main excel export features
@@ -31,10 +32,11 @@ public class Department {
 
     public static List<Department> generate(int depCount, int employeeCount){
         List<Department> departments = new ArrayList<Department>();
+        Random random = new Random(System.currentTimeMillis());
         for(int index = 0; index < depCount; index++){
             Department dep = new Department("Dep " + index);
             dep.setChief( Employee.generateOne("ch" + index));
-            dep.setStaff( Employee.generate(employeeCount) );
+            dep.setStaff( Employee.generate(1 + random.nextInt(employeeCount)) );
             departments.add( dep );
         }
         return departments;

@@ -2,6 +2,8 @@ package org.jxls.demo;
 
 import org.jxls.common.Context;
 import org.jxls.demo.guide.Employee;
+import org.jxls.demo.model.Department;
+import org.jxls.demo.model.Org;
 import org.jxls.util.JxlsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,24 +27,16 @@ public class FormulaCopyDemo {
 
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Formula Copy demo");
-        List<Employee> employees = generateSampleEmployeeData();
+        List<Org> orgs = Org.generate(3, 3);
         try(InputStream is = FormulaCopyDemo.class.getResourceAsStream("formula_copy_template.xls")) {
             try (OutputStream os = new FileOutputStream("target/formula_copy_output.xls")) {
                 Context context = new Context();
-                context.putVar("employees", employees);
-                JxlsHelper.getInstance().processTemplate(is, os, context);
+                context.putVar("orgs", orgs);
+                JxlsHelper jxlsHelper = JxlsHelper.getInstance();
+                jxlsHelper.setUseFastFormulaProcessor(false);
+                jxlsHelper.processTemplate(is, os, context);
             }
         }
     }
 
-    public static List<Employee> generateSampleEmployeeData() throws ParseException {
-        List<Employee> employees = new ArrayList<Employee>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MMM-dd", Locale.US);
-        employees.add( new Employee("Elsa", dateFormat.parse("1970-Jul-10"), 1500, 0.15) );
-        employees.add( new Employee("Oleg", dateFormat.parse("1973-Apr-30"), 2300, 0.25) );
-        employees.add( new Employee("Neil", dateFormat.parse("1975-Oct-05"), 2500, 0.00) );
-        employees.add( new Employee("Maria", dateFormat.parse("1978-Jan-07"), 1700, 0.15) );
-        employees.add( new Employee("John", dateFormat.parse("1969-May-30"), 2800, 0.20) );
-        return employees;
-    }
 }
