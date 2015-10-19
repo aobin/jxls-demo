@@ -30,34 +30,28 @@ public class SqlDemo {
     public static void main(String[] args) throws ParseException, IOException, ClassNotFoundException, SQLException {
         logger.info("Running SQL demo");
         Class.forName(DRIVER);
-        initData();
         try (Connection conn = DriverManager.getConnection(CONNECTION_URL)){
-            JdbcHelper queryRunner = new JdbcHelper(conn);
-            List mapList = queryRunner.query("select * from employee");
-            for (Object obj : mapList) {
-                Map map = (Map) obj;
-                System.out.println("Name: " + map.get("name"));
-            }
+            initData(conn);
             JdbcHelper jdbcHelper = new JdbcHelper(conn);
+
             try(InputStream is = SqlDemo.class.getResourceAsStream("sql_demo_template.xls")) {
                 try (OutputStream os = new FileOutputStream("target/sql_demo_output.xls")) {
                     Context context = new Context();
                     context.putVar("conn", conn);
-                    context.putVar("sql", jdbcHelper);
+                    context.putVar("jdbc", jdbcHelper);
                     JxlsHelper.getInstance().processTemplate(is, os, context);
                 }
             }
         }
     }
 
-    private static void initData() throws SQLException, ParseException {
+    private static void initData(Connection conn) throws SQLException, ParseException {
         String createTableSlq = "CREATE TABLE employee (" +
                 "id INT NOT NULL, " +
                 "name VARCHAR(20) NOT NULL, " +
                 "PRIMARY KEY (id))";
         String insertSql = "INSERT INTO employee VALUES (?,?)";
         List<Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
-        try (Connection conn = DriverManager.getConnection(CONNECTION_URL)) {
             try(Statement stmt = conn.createStatement()){
                 stmt.executeUpdate(createTableSlq);
                 int k = 1;
@@ -69,7 +63,6 @@ public class SqlDemo {
                     }
 
                 }
-            }
 
         }
     }
