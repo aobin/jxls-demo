@@ -47,6 +47,8 @@ public class MainDemo {
         CustomExpressionNotationDemo.main(args);
         ShiftStrategyDemo.main(args);
 
+        SqlDemo.main(args);
+
         String transformerName = TransformerFactory.getTransformerName();
 
         if( TransformerFactory.POI_TRANSFORMER.equals( transformerName ) ){

@@ -39,3 +39,5 @@ List of examples
 24. *org.jxls.demo.CustomExpressionNotationDemo*          - Custom expression notation demo
 25. *org.jxls.demo.ShiftStrategyDemo*                     - Demo of `shiftMode` attribute for *Command*
 26. *org.jxls.demo.guide.ObjectCollectionByColumnsDemo*   - Demo of setting `direction` attribute for *Each-Command* in template
+27. *org.jxls.demo.TwoInnerLoopsDemo*                     - Demo of having multiple nested commands inside *Each-Command* area
+28. *org.jxls.demo.SqlDemo*                               - Sql statements in template demo
