@@ -33,7 +33,6 @@ public class SqlDemo {
         try (Connection conn = DriverManager.getConnection(CONNECTION_URL)){
             initData(conn);
             JdbcHelper jdbcHelper = new JdbcHelper(conn);
-
             try(InputStream is = SqlDemo.class.getResourceAsStream("sql_demo_template.xls")) {
                 try (OutputStream os = new FileOutputStream("target/sql_demo_output.xls")) {
                     Context context = new Context();
@@ -49,8 +48,10 @@ public class SqlDemo {
         String createTableSlq = "CREATE TABLE employee (" +
                 "id INT NOT NULL, " +
                 "name VARCHAR(20) NOT NULL, " +
+                "birthdate DATE, " +
+                "payment DECIMAL, " +
                 "PRIMARY KEY (id))";
-        String insertSql = "INSERT INTO employee VALUES (?,?)";
+        String insertSql = "INSERT INTO employee VALUES (?,?,?,?)";
         List<Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
             try(Statement stmt = conn.createStatement()){
                 stmt.executeUpdate(createTableSlq);
@@ -59,11 +60,11 @@ public class SqlDemo {
                     for (Employee employee : employees) {
                         insertStmt.setInt(1, k++);
                         insertStmt.setString(2, employee.getName());
+                        insertStmt.setDate(3, new Date(employee.getBirthDate().getTime()));
+                        insertStmt.setBigDecimal(4, employee.getPayment());
                         insertStmt.executeUpdate();
                     }
-
                 }
-
         }
     }
 
