@@ -34,7 +34,7 @@ public class MainDemo {
 
         SimpleExporterDemo.main(args);
 
-//        FormulaCopyDemo.main(args);
+        FormulaCopyDemo.main(args);
 
         TwoInnerLoopsDemo.main(args);
 
