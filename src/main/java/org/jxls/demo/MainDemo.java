@@ -2,6 +2,7 @@ package org.jxls.demo;
 
 import org.jxls.demo.guide.*;
 import org.jxls.demo.reader.XlsReaderDemo;
+import org.jxls.issue.issue35.Issue35Demo;
 import org.jxls.issue.jxls11.Issue11Demo;
 import org.jxls.issue.jxls4.Issue4Demo;
 import org.jxls.issue.jxls7.Issue7Demo;
@@ -40,9 +41,7 @@ public class MainDemo {
 
         XlsReaderDemo.main(args);
 
-        Issue4Demo.main(args);
-        Issue7Demo.main(args);
-        Issue11Demo.main(args);
+//        Issue35Demo.main(args);
         JexlCustomFunctionDemo.main(args);
         CustomExpressionNotationDemo.main(args);
         ShiftStrategyDemo.main(args);
