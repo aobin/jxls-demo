@@ -41,7 +41,7 @@ public class MainDemo {
 
         XlsReaderDemo.main(args);
 
-//        Issue35Demo.main(args);
+        Issue35Demo.main(args);
         JexlCustomFunctionDemo.main(args);
         CustomExpressionNotationDemo.main(args);
         ShiftStrategyDemo.main(args);
