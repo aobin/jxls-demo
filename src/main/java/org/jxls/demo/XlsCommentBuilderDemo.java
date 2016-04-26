@@ -8,6 +8,7 @@ import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.demo.model.Department;
 import org.jxls.transform.Transformer;
+import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class XlsCommentBuilderDemo {
                 AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer, false);
                 List<Area> xlsAreaList = areaBuilder.build();
                 Area xlsArea = xlsAreaList.get(0);
-                Context context = transformer.createInitialContext();
+                Context context = PoiTransformer.createInitialContext();
                 context.putVar("departments", departments);
                 logger.info("Applying area " + xlsArea.getAreaRef() + " at cell " + new CellRef("Down!A1"));
                 xlsArea.applyAt(new CellRef("Down!A1"), context);

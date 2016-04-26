@@ -6,6 +6,7 @@ import org.jxls.builder.xml.XmlAreaBuilder;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.transform.Transformer;
+import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class DynamicColumnsDemo {
                 List<Area> xlsAreaList = areaBuilder.build();
                 Area xlsArea = xlsAreaList.get(0);
                 // creating context
-                Context context = transformer.createInitialContext();
+                Context context = PoiTransformer.createInitialContext();
                 context.putVar("headers", headers);
                 context.putVar("rows", rows);
                 // applying transformation
