@@ -1,11 +1,14 @@
 package org.jxls.demo;
 
-import org.jxls.demo.guide.*;
+import org.jxls.demo.guide.NestedCommandDemo;
+import org.jxls.demo.guide.NestedCommandJavaAPIDemo;
+import org.jxls.demo.guide.ObjectCollectionByColumnsDemo;
+import org.jxls.demo.guide.ObjectCollectionDemo;
+import org.jxls.demo.guide.ObjectCollectionFormulasDemo;
+import org.jxls.demo.guide.ObjectCollectionJavaAPIDemo;
+import org.jxls.demo.guide.ObjectCollectionXMLBuilderDemo;
+import org.jxls.demo.guide.ParameterizedFormulasDemo;
 import org.jxls.demo.reader.XlsReaderDemo;
-import org.jxls.issue.issue35.Issue35Demo;
-import org.jxls.issue.jxls11.Issue11Demo;
-import org.jxls.issue.jxls4.Issue4Demo;
-import org.jxls.issue.jxls7.Issue7Demo;
 import org.jxls.util.TransformerFactory;
 
 /**
@@ -41,7 +44,7 @@ public class MainDemo {
 
         XlsReaderDemo.main(args);
 
-//        Issue35Demo.main(args);
+        MultiSheetMarkupDemo.main(args);
         JexlCustomFunctionDemo.main(args);
         CustomExpressionNotationDemo.main(args);
         ShiftStrategyDemo.main(args);

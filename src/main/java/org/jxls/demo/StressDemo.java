@@ -8,6 +8,7 @@ import org.jxls.common.Context;
 import org.jxls.demo.model.Department;
 import org.jxls.demo.model.Employee;
 import org.jxls.transform.Transformer;
+import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.TransformerFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class StressDemo {
                 AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
                 List<Area> xlsAreaList = areaBuilder.build();
                 Area xlsArea = xlsAreaList.get(0);
-                Context context = transformer.createInitialContext();
+                Context context = PoiTransformer.createInitialContext();
                 context.putVar("employees", employees);
                 long startTime = System.nanoTime();
                 xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
@@ -68,7 +69,7 @@ public class StressDemo {
                 AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer);
                 List<Area> xlsAreaList = areaBuilder.build();
                 Area xlsArea = xlsAreaList.get(0);
-                Context context = transformer.createInitialContext();
+                Context context = PoiTransformer.createInitialContext();
                 context.putVar("departments", departments);
                 long startTime = System.nanoTime();
                 xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
