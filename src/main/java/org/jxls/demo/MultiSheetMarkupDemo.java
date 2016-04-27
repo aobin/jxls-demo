@@ -38,7 +38,7 @@ public class MultiSheetMarkupDemo {
                         departments.get(0).getName(),
                         departments.get(1).getName(),
                         departments.get(2).getName()));
-                JxlsHelper.getInstance().setUseFastFormulaProcessor(false).processTemplateAtCell(is, os, context, "A1");
+                JxlsHelper.getInstance().setUseFastFormulaProcessor(false).processTemplate(is, os, context);
                 logger.info("written to file");
             }
         }
