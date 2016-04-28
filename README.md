@@ -42,3 +42,4 @@ List of examples
 27. *org.jxls.demo.TwoInnerLoopsDemo*                     - Demo of having multiple nested commands inside *Each-Command* area
 28. *org.jxls.demo.FormulaCopyDemo*                       - Demonstrates usage of jx:params for formulas
 29. *org.jxls.demo.SqlDemo*                               - Sql statements in template demo
+30. *org.jxls.demo.MultiSheetMarkupDemo*                  - Multiple Sheet example demonstrating Excel markup usage
