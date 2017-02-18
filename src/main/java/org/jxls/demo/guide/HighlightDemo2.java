@@ -1,15 +1,7 @@
 package org.jxls.demo.guide;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.jxls.area.Area;
-import org.jxls.builder.AreaBuilder;
-import org.jxls.builder.xls.XlsCommentAreaBuilder;
-import org.jxls.common.CellRef;
 import org.jxls.common.Context;
-import org.jxls.transform.Transformer;
-import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.JxlsHelper;
-import org.jxls.util.TransformerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,25 +19,17 @@ import java.util.Locale;
  * @author Leonid Vysochyn
  *         Date: 10/22/13
  */
-public class HighlightDemo {
-    static Logger logger = LoggerFactory.getLogger(HighlightDemo.class);
+public class HighlightDemo2 {
+    static Logger logger = LoggerFactory.getLogger(HighlightDemo2.class);
 
-    public static void main(String[] args) throws ParseException, IOException, InvalidFormatException {
+    public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Highlight demo");
         List<Employee> employees = generateSampleEmployeeData();
-        try(InputStream is = HighlightDemo.class.getResourceAsStream("highlight_template.xls")) {
+        try(InputStream is = ObjectCollectionDemo.class.getResourceAsStream("highlight_template.xls")) {
             try (OutputStream os = new FileOutputStream("target/highlight_output.xls")) {
-                PoiTransformer transformer = PoiTransformer.createTransformer(is, os);
-                AreaBuilder areaBuilder = new XlsCommentAreaBuilder(transformer, false);
-                List<Area> xlsAreaList = areaBuilder.build();
-                Area mainArea = xlsAreaList.get(0);
-                Area loopArea = xlsAreaList.get(0).getCommandDataList().get(0).getCommand().getAreaList().get(0);
-                loopArea.addAreaListener(new HighlightCellAreaListener(transformer));
                 Context context = new Context();
                 context.putVar("employees", employees);
-                mainArea.applyAt(new CellRef("Result!A1"), context);
-                mainArea.processFormulas();
-                transformer.write();
+                JxlsHelper.getInstance().processTemplateAtCell(is, os, context, "Result!A1");
             }
         }
     }
