@@ -41,6 +41,8 @@ public class EachIfCommandDemo {
         try(InputStream is = EachIfCommandDemo.class.getResourceAsStream(template)) {
             try (OutputStream os = new FileOutputStream(output)) {
                 Transformer transformer = TransformerFactory.createTransformer(is, os);
+                // uncomment in case you want to avoid using ThreadLocals in ExpressionEvaluator implementations
+                // transformer.getTransformationConfig().setExpressionEvaluator(new JexlExpressionEvaluatorNoThreadLocal());
                 System.out.println("Creating area");
                 XlsArea xlsArea = new XlsArea("Template!A1:G15", transformer);
                 XlsArea departmentArea = new XlsArea("Template!A2:G13", transformer);
