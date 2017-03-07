@@ -1,6 +1,7 @@
 package org.jxls.demo;
 
 import org.jxls.demo.guide.HighlightDemo;
+import org.jxls.demo.guide.IfCommandDemo;
 import org.jxls.demo.guide.NestedCommandDemo;
 import org.jxls.demo.guide.NestedCommandJavaAPIDemo;
 import org.jxls.demo.guide.ObjectCollectionByColumnsDemo;
@@ -27,6 +28,7 @@ public class MainDemo {
         NestedCommandJavaAPIDemo.main(args);
         NestedCommandDemo.main(args);
         HighlightDemo.main(args);
+        IfCommandDemo.main(args);
 
         EachIfCommandDemo.main(args);
         EachIfXmlBuilderDemo.main(args);
