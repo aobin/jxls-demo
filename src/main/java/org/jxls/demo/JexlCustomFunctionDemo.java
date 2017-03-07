@@ -3,12 +3,9 @@ package org.jxls.demo;
 import org.jxls.area.Area;
 import org.jxls.builder.AreaBuilder;
 import org.jxls.builder.xls.XlsCommentAreaBuilder;
-import org.jxls.command.GridCommand;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
-import org.jxls.demo.guide.Employee;
 import org.jxls.expression.JexlExpressionEvaluator;
-import org.jxls.template.SimpleExporter;
 import org.jxls.transform.Transformer;
 import org.jxls.util.TransformerFactory;
 import org.slf4j.Logger;
@@ -19,7 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Leonid Vysochyn on 22-Jul-15.
