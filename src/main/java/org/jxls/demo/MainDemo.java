@@ -1,5 +1,6 @@
 package org.jxls.demo;
 
+import org.jxls.demo.guide.GroupingDemo;
 import org.jxls.demo.guide.HighlightDemo;
 import org.jxls.demo.guide.IfCommandDemo;
 import org.jxls.demo.guide.NestedCommandDemo;
@@ -29,6 +30,7 @@ public class MainDemo {
         NestedCommandDemo.main(args);
         HighlightDemo.main(args);
         IfCommandDemo.main(args);
+        GroupingDemo.main(args);
 
         EachIfCommandDemo.main(args);
         EachIfXmlBuilderDemo.main(args);
