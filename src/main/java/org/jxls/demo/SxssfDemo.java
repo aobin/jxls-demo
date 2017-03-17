@@ -1,23 +1,27 @@
 package org.jxls.demo;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.jxls.area.Area;
 import org.jxls.builder.AreaBuilder;
 import org.jxls.builder.xls.XlsCommentAreaBuilder;
+import org.jxls.command.CellDataUpdater;
+import org.jxls.common.CellData;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
-import org.jxls.demo.guide.ObjectCollectionDemo;
 import org.jxls.demo.model.Department;
 import org.jxls.demo.model.Employee;
 import org.jxls.transform.Transformer;
 import org.jxls.transform.poi.PoiContext;
 import org.jxls.transform.poi.PoiTransformer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.List;
 
@@ -25,6 +29,16 @@ import java.util.List;
  * @author Leonid Vysochyn
  */
 public class SxssfDemo {
+    static class TotalCellUpdater implements CellDataUpdater{
+        private static final String SOURCE_FORMULA = "C4*(1+D4)";
+        @Override
+        public void updateCellData(CellData cellData, CellRef targetCell, Context context) {
+            if( cellData.isFormulaCell() && cellData.getFormula().equals(SOURCE_FORMULA) ){
+                cellData.setEvaluationResult(SOURCE_FORMULA.replaceAll("4", Integer.toString(targetCell.getRow()+1)));
+            }
+        }
+    }
+
     public static final int EMPLOYEE_COUNT = 30000;
     public static final int DEPARTMENT_COUNT = 100;
     public static final int DEP_EMPLOYEE_COUNT = 500;
@@ -33,14 +47,15 @@ public class SxssfDemo {
     public static void main(String[] args) throws IOException, InvalidFormatException, ParseException {
         logger.info("Entering Stress Sxssf demo");
 //        demoDisableFormulaCellRefProcessing();
-        executeStress1();
-        executeStress2();
+        simpleSxssf();
+//        executeStress1();
+//        executeStress2();
     }
 
     public static void simpleSxssf() throws ParseException, IOException, InvalidFormatException {
         logger.info("running simple Sxssf demo");
         try(InputStream is = SxssfDemo.class.getResourceAsStream("sxssf_template.xlsx")) {
-            List<org.jxls.demo.guide.Employee> employees = ObjectCollectionDemo.generateSampleEmployeeData();
+            List<Employee> employees = Employee.generate(10);
             try (OutputStream os = new FileOutputStream("target/simple_sxssf_output.xlsx")) {
                 Workbook workbook = WorkbookFactory.create(is);
                 Transformer transformer = PoiTransformer.createSxssfTransformer(workbook, 5, false);
@@ -48,8 +63,12 @@ public class SxssfDemo {
                 List<Area> xlsAreaList = areaBuilder.build();
                 Area xlsArea = xlsAreaList.get(0);
                 Context context = new Context();
+                context.putVar("totalCellUpdater", new TotalCellUpdater());
                 context.putVar("employees", employees);
                 xlsArea.applyAt(new CellRef("Result!A1"), context);
+                context.getConfig().setIsFormulaProcessingRequired(false);
+//                xlsArea.processFormulas();
+                workbook.setForceFormulaRecalculation(true);
                 ((PoiTransformer) transformer).getWorkbook().write(os);
             }
         }

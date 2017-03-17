@@ -65,6 +65,7 @@ public class MainDemo {
             AreaListenerDemo.main(args);
             StressXlsxDemo.executeStress1();
             StressXlsxDemo.executeStress2();
+            SxssfDemo.simpleSxssf();
             SxssfDemo.executeStress1();
             SxssfDemo.executeStress2();
         }
