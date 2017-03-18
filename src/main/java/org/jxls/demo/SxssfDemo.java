@@ -42,8 +42,8 @@ public class SxssfDemo {
             }
         }
     }
-    static class TotalCellUpdater implements CellDataUpdater{
 
+    static class TotalCellUpdater implements CellDataUpdater{
         @Override
         public void updateCellData(CellData cellData, CellRef targetCell, Context context) {
             if( cellData.isFormulaCell() && cellData.getFormula().equals("SUM(E2)")){
